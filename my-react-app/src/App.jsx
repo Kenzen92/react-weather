@@ -9,7 +9,7 @@ function App() {
     <>
       <h1>Welcome to my weather app blud</h1>
       <Weather 
-      cityName="London"
+      cityName="Porto"
       // temperature={25}
       // weatherDescription="Sunny"
       />
