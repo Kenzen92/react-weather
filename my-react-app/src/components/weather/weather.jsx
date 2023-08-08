@@ -4,7 +4,7 @@ const WeatherComponent = ({ cityName }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}?unitGroup=metric&include=current%2Calerts&key=MLADZ2F5JMX3YG2PDUJD59VPW&contentType=json`)
+    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}?unitGroup=metric&include=current%2Calerts&key=${import.meta.env.VITE_WEATHER_API_KEY}&contentType=json`)
       .then(response => response.json()) // Parse response JSON
       .then(data => {
         console.log(data);
