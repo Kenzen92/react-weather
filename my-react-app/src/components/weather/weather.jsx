@@ -28,8 +28,12 @@ const WeatherComponent = ({ lat, lon }) => {
       <h2>Weather in {lat} {lon}</h2>
       <p>Temperature: {currentWeather.temp}°C</p>
       <p>Weather: {currentWeather.conditions}</p>
-      <TenDayBox weatherData={weatherData} />
     </div>
+    <div className="box-container">
+          <UpperBox  weatherData={weatherData} />
+          <TodayBox  weatherData={weatherData} />
+          <TenDayBox weatherData={weatherData} />
+        </div>
     </>
   );
 };

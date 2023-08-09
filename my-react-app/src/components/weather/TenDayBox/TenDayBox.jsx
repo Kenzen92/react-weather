@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./TenDayBox.css"
-import snowIcon from 'C:/Users/james/Programming/react-weather/my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
+import snowIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
 import snowShowersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
 import snowShowersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-night.png';
 import thunderRainIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-rain.png';

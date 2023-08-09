@@ -1,15 +1,51 @@
 import React from 'react';
 import "./TodayBox.css"
+import snowIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
+import snowShowersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
+import snowShowersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-night.png';
+import thunderRainIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-rain.png';
+import thunderShowersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-showers-day.png';
+import thunderShowersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-showers-night.png';
+import rainIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/rain.png';
+import showersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/showers-day.png';
+import showersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/showers-night.png';
+import fogIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/fog.png';
+import windIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/wind.png';
+import cloudyIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/cloudy.png';
+import partlyCloudyDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-day.png';
+import partlyCloudyNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-night.png';
+import clearDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/clear-day.png';
+import clearNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/clear-night.png';
 
-function TodayBox({ currentWeatherData, threeHourWeatherData }) {
+const weatherIcons = {
+    'partly-cloudy-day': partlyCloudyDayIcon,
+    'partly-cloudy-night': partlyCloudyNightIcon,
+    'clear-day': clearDayIcon,
+    'clear-night': clearNightIcon,
+    'cloudy': cloudyIcon,
+    'fog': fogIcon,
+    'rain': rainIcon,
+    'showers-day': showersDayIcon,
+    'showers-night': showersNightIcon,
+    'snow': snowIcon,
+    'snow-showers-day': snowShowersDayIcon,
+    'snow-showers-night': snowShowersNightIcon,
+    'thunder-rain': thunderRainIcon,
+    'thunder-showers-day': thunderShowersDayIcon,
+    'thunder-showers-night': thunderShowersNightIcon,
+    'wind': windIcon,
+    // ... add other conditions here ...
+};
+
+function TodayBox({ weatherData }) {
     // Get the current timestamp
     const currentTimestamp = new Date().getTime();
 
     // Iterate through the API response to find the temperature values for the next 6 hours
     const nextSixHours = [];
     for (let i = 0; i < 6; i++) {
-    const entry = threeHourWeatherData.weatherData.data[i];
-    const entryTimestamp = new Date(entry.timestamp_local);
+    const entry = weatherData.days.hours[i];
+    const entryTimestamp = new Date(entry.datetime);
     const hour = entryTimestamp.getHours();
     const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
     const period = hour >= 12 ? 'pm' : 'am';
@@ -22,7 +58,7 @@ function TodayBox({ currentWeatherData, threeHourWeatherData }) {
 
   return (
     <div className="todayBoxBackground">
-                <div id="todayDescription" className="todayDescription">{currentWeatherData.weatherData.data[0].weather.description}</div>
+                <div id="todayDescription" className="todayDescription">{weatherData.description}</div>
                 <div className='todayBox'>
 
                     <div className="one-hour-box">
