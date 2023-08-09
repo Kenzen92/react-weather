@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import TenDayBox from './TenDayBox/TenDayBox';
 
-const WeatherComponent = ({ cityName }) => {
+const WeatherComponent = ({ lat, lon }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}?unitGroup=metric&include=current%2Calerts&key=${import.meta.env.VITE_WEATHER_API_KEY}&contentType=json`)
+    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C%20${lon}?unitGroup=metric&include=current%2Calerts&key=${import.meta.env.VITE_WEATHER_API_KEY}&contentType=json`)
       .then(response => response.json()) // Parse response JSON
       .then(data => {
         console.log(data);
@@ -13,7 +14,7 @@ const WeatherComponent = ({ cityName }) => {
       .catch(err => {
         console.error(err);
       });
-  }, [cityName]);
+  }, [lat, lon]);
 
   if (!weatherData) {
     return <div>Loading...</div>;
@@ -22,11 +23,14 @@ const WeatherComponent = ({ cityName }) => {
   const currentWeather = weatherData.currentConditions;
 
   return (
+    <>
     <div>
-      <h2>Weather in {cityName}</h2>
+      <h2>Weather in {lat} {lon}</h2>
       <p>Temperature: {currentWeather.temp}°C</p>
       <p>Weather: {currentWeather.conditions}</p>
+      <TenDayBox weatherData={weatherData} />
     </div>
+    </>
   );
 };
 

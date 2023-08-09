@@ -1,0 +1,122 @@
+body {
+    background-color: rgba(47, 117, 187, .7);
+    margin: 0;
+}
+
+img {
+    max-width: 26px;
+    padding: 2px;
+}
+
+.phoneBox {
+    text-align: center;
+    border: 1px;
+    font-family: 'Rubik', sans-serif;
+    color: white;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    padding-bottom: 177px;
+}
+.todayDescription{
+    background-color: rgba(47, 117, 187, .7);
+    margin-top: 15%;
+    margin-bottom: 2px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    padding: 0.2rem;
+}
+
+.newBox {
+    padding-top: 20%;
+}
+.newBox .placeName {
+    font-size: 2rem;
+}
+.newBox .temp {
+    font-size: 3rem;
+    padding-top: 2%;
+}
+.newBox .description, .newBox .miniTemp {
+    font-size: 1rem;
+}
+.miniTemps {
+    display: flex;
+    justify-content:center;
+}
+.miniTemp {
+    padding: 0.2rem;
+}
+
+.todayBox{
+    background-color: rgba(47, 117, 187, .7);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 0.4rem;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+}
+
+#ten-day-forecast {
+    margin-top: 5%;
+    background-color: rgba(47, 117, 187, .7);
+    border-radius: 20px 20px;
+    margin-bottom: 5%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.ten-day-forecast-item {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 0.2rem;
+    font-size: 1rem;
+    border-top: 1px solid rgba(13, 0, 128, .3);
+    border-bottom: 1px solid rgba(13, 0, 128, .3);
+}
+
+.arrows{
+    max-width: 1rem;
+}
+
+.low, .high {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.last {
+    border-bottom: none;
+}
+.first {
+    border-top: none;
+}
+.day-of-the-week, .high-low{
+    padding: 10px 0;
+    margin-block: auto;
+    text-align: center;
+}
+.high-low {
+    display: flex;
+}
+.ten-day-icon {
+    margin-block: auto;
+}
+
+@media only screen and (min-width: 800px) {
+    img {
+        max-width: 35px;
+        padding: 5px;
+    }
+  }
