@@ -1,21 +1,22 @@
 import React from 'react';
 import "./TodayBox.css"
-import snowIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
-import snowShowersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
-import snowShowersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-night.png';
-import thunderRainIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-rain.png';
-import thunderShowersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-showers-day.png';
-import thunderShowersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-showers-night.png';
-import rainIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/rain.png';
-import showersDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/showers-day.png';
-import showersNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/showers-night.png';
-import fogIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/fog.png';
-import windIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/wind.png';
-import cloudyIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/cloudy.png';
-import partlyCloudyDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-day.png';
-import partlyCloudyNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-night.png';
-import clearDayIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/clear-day.png';
-import clearNightIcon from 'my-react-app/src/assets/WeatherIcons-main/PNG/2nd Set - Color/clear-night.png';
+import snowIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
+import snowShowersDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
+import snowShowersNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-night.png';
+import thunderRainIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-rain.png';
+import thunderShowersDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-showers-day.png';
+import thunderShowersNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/thunder-showers-night.png';
+import rainIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/rain.png';
+import showersDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/showers-day.png';
+import showersNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/showers-night.png';
+import fogIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/fog.png';
+import windIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/wind.png';
+import cloudyIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/cloudy.png';
+import partlyCloudyDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-day.png';
+import partlyCloudyNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-night.png';
+import clearDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-day.png';
+import clearNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-night.png';
+
 
 const weatherIcons = {
     'partly-cloudy-day': partlyCloudyDayIcon,
@@ -43,18 +44,49 @@ function TodayBox({ weatherData }) {
 
     // Iterate through the API response to find the temperature values for the next 6 hours
     const nextSixHours = [];
-    for (let i = 0; i < 6; i++) {
-    const entry = weatherData.days.hours[i];
-    const entryTimestamp = new Date(entry.datetime);
-    const hour = entryTimestamp.getHours();
-    const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-    const period = hour >= 12 ? 'pm' : 'am';
-    const formattedTime = `${formattedHour}${period}`;
-    const temp = entry.temp;
-    const icon = "https://www.weatherbit.io/static/img/icons/" + entry.weather.icon + ".png";
-    const precipitation = entry['precip'];
-    nextSixHours.push({"time": formattedTime, "temp": temp, "icon": icon, "precipitation": precipitation});
-}
+    const entry = weatherData['days'][0]['hours'];
+//     for (let i = 0; i < 6; i++) {
+//         const dateTimeEpoch = entry[i].datetimeEpoch * 1000;
+//         const entryTimestamp = new Date(dateTimeEpoch);
+//         console.log("entrytime stamp", entryTimestamp)
+//         const hour = entryTimestamp.getHours();
+//         console.log("hour", hour)
+//         const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+//         const period = hour >= 12 ? 'pm' : 'am';
+//         const formattedTime = `${formattedHour}${period}`;
+//         const temp = entry[i].temp;
+//         const icon = weatherIcons[weatherData.days[i]['icon']];
+//         const precipitation = entry['precip'];
+//         nextSixHours.push({"time": formattedTime, "temp": temp, "icon": icon, "precipitation": precipitation});
+// }
+
+    // Find the index in the hours array where the current time falls
+    let startIndex = -1;
+    for (let i = 0; i < entry.length; i++) {
+        const dateTimeEpoch = entry[i].datetimeEpoch * 1000;
+        if (dateTimeEpoch >= currentTimestamp) {
+            startIndex = i;
+            break;
+        }
+    }
+
+    if (startIndex !== -1) {
+        // Iterate through the next six hours
+
+        for (let i = startIndex; i < startIndex + 6 && i < entry.length; i++) {
+            const dateTimeEpoch = entry[i].datetimeEpoch * 1000;
+            const entryTimestamp = new Date(dateTimeEpoch);
+            const hour = entryTimestamp.getHours();
+            const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+            const period = hour >= 12 ? 'pm' : 'am';
+            const formattedTime = `${formattedHour}${period}`;
+            const temp = entry[i].temp;
+            const icon = weatherIcons[weatherData.days[0]['hours'][i]['icon']];
+            const precipitation = entry[i]['precip'];
+            nextSixHours.push({"time": formattedTime, "temp": temp, "icon": icon, "precipitation": precipitation});
+        }
+    }
+    console.log("next six hours", nextSixHours);
 
   return (
     <div className="todayBoxBackground">
@@ -64,10 +96,10 @@ function TodayBox({ weatherData }) {
                     <div className="one-hour-box">
                         <div id="currentTime" className="todayItem">Now</div>
                         <div className="todayItem">
-                            <img id="currentIcon" src={"https://www.weatherbit.io/static/img/icons/" + currentWeatherData.weatherData.data[0].weather.icon + ".png"}></img>
+                            <img id="currentIcon" src={weatherIcons[weatherData.currentConditions['icon']]}></img>
                         </div>
-                        <div id="currentTempSmall" className="todayItem">{currentWeatherData.weatherData.data[0].temp}°</div>
-                        <div className="todayItem">{nextSixHours[0].precipitation}mm</div>
+                        <div id="currentTempSmall" className="todayItem">{weatherData.currentConditions.temp}°</div>
+                        <div className="todayItem">{weatherData.currentConditions.precip}mm</div>
                     </div>
                     <div className="one-hour-box">
                         <div id="currentTimePlus3" className="todayItem">{nextSixHours[1].time}</div>
@@ -112,6 +144,6 @@ function TodayBox({ weatherData }) {
                 </div>
             </div>
   );
-}
 
+  }
 export default TodayBox;

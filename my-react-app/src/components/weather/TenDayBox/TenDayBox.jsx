@@ -44,7 +44,6 @@ function TenDayBox({ weatherData }) {
     const daysOfTheWeek = ['Mon', "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", 'Mon', "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const date = new Date(weatherData.days[0]['datetime'])
     const firstDay = date.getDay();
-    console.log(daysOfTheWeek[firstDay - 1]);
   return (
     <div id="ten-day-forecast">
         <div className="ten-day-forecast-item first" id="Today">
