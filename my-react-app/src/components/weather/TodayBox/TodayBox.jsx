@@ -41,16 +41,40 @@ const weatherIcons = {
 function TodayBox({ weatherData }) {
     // Get the current timestamp
     const currentTimestamp = new Date().getTime();
-
-    // Iterate through the API response to find the temperature values for the next 6 hours
-    const nextSixHours = [0, 0, 0, 0, 0, 0, 0];
+    const nextSixHours = [0, 0, 0, 0, 0, 0];
     const entry = weatherData['days'];
+    let firstFutureTime = -1;
 
+    // Iterate through the API response to find the first hour in the future
+    for (let i = 0; i < entry[0]['hours'].length; i++) {
+        const epochTime = new Date(entry[0]['hours'][i]['datetimeEpoch'] * 1000);
+        if (epochTime.getTime() >= currentTimestamp) {
+            firstFutureTime = i;
+            break;
+        }
+    }
+
+    // Get the timezone offset in milliseconds
+    const timezoneOffset = entry['tzoffset']; // Convert minutes to milliseconds
+    let currentFutureHour = firstFutureTime;
+    let oneDayOfHours = entry[0]['hours'];
+    
     // iterate through the 6 time slots
-    for (let i=0; i< nextSixHours.length; i++) {
-        let oneDayOfHours = entry[0]['hours'];
-        const dateTimeEpoch = oneDayOfHours[i].datetimeEpoch * 1000;
-        const entryTimestamp = new Date(dateTimeEpoch)
+    for (let i=0; i< 6; i++) {
+        const dateTimeEpoch = oneDayOfHours[currentFutureHour].datetimeEpoch * 1000;
+        currentFutureHour += 1;
+        console.log(currentFutureHour);
+        
+        // Create a new Date object in UTC
+        let entryTimestamp = new Date(dateTimeEpoch);
+
+        // Get the local timezone offset in minutes
+        const localTimezoneOffset = entryTimestamp.getTimezoneOffset();
+
+        // Adjust the time by adding the local timezone offset
+        entryTimestamp.setMinutes(entryTimestamp.getMinutes() + localTimezoneOffset);
+
+        console.log(entryTimestamp);
 
         // check if current time is the last hour of current day, and iterate day if so
         if ((entryTimestamp).getHours() == 23) {
@@ -58,7 +82,8 @@ function TodayBox({ weatherData }) {
         }
         // check if the entry is less than or equal to current time, if so skip
         if (entryTimestamp <= currentTimestamp) {
-            continue
+            console.log("entry time less than current time");
+            continue;
         }
         // if not, add data to nextSixHours[i]
         else {
@@ -70,9 +95,9 @@ function TodayBox({ weatherData }) {
             const icon = weatherIcons[weatherData.days[i]['icon']];
             const precipitation = entry[i]['precip'];
             nextSixHours[i] = {"time": formattedTime, "temp": temp, "icon": icon, "precipitation": precipitation};
-            console.log(nextSixHours);
         }
     }
+    console.log(nextSixHours);
 
   return (
     <div className="todayBoxBackground">
@@ -88,44 +113,44 @@ function TodayBox({ weatherData }) {
                         <div className="todayItem">{weatherData.currentConditions.precip}mm</div>
                     </div>
                     <div className="one-hour-box">
-                        <div id="currentTimePlus3" className="todayItem">{nextSixHours[2].time}</div>
+                        <div id="currentTimePlus3" className="todayItem">{nextSixHours[1].time}</div>
                         <div className="todayItem">
-                            <img id="currentIconPlus3" src={nextSixHours[2].icon}></img>
+                            <img id="currentIconPlus3" src={nextSixHours[1].icon}></img>
                         </div>
-                        <div id="currentTempSmallPlus3" className="todayItem">{nextSixHours[2].temp}°</div>
+                        <div id="currentTempSmallPlus3" className="todayItem">{nextSixHours[1].temp}°</div>
+                        <div className="todayItem">{nextSixHours[1].precipitation}mm</div>
+                    </div>
+                    <div className="one-hour-box">
+                        <div id="currentTimePlus6" className="todayItem">{nextSixHours[2].time}</div>
+                        <div className="todayItem">
+                            <img id="currentIconPlus6" src={nextSixHours[2].icon}></img>
+                        </div>
+                        <div id="currentTempSmallPlus6" className="todayItem">{nextSixHours[2].temp}°</div>
                         <div className="todayItem">{nextSixHours[2].precipitation}mm</div>
                     </div>
                     <div className="one-hour-box">
-                        <div id="currentTimePlus6" className="todayItem">{nextSixHours[3].time}</div>
-                        <div className="todayItem">
-                            <img id="currentIconPlus6" src={nextSixHours[3].icon}></img>
+                        <div id="currentTimePlus9" className="todayItem">{nextSixHours[3].time}</div>
+                        <div  className="todayItem">
+                            <img id="currentIconPlus9" src={nextSixHours[3].icon}></img>
                         </div>
-                        <div id="currentTempSmallPlus6" className="todayItem">{nextSixHours[3].temp}°</div>
+                        <div id="currentTempSmallPlus9" className="todayItem">{nextSixHours[3].temp}°</div>
                         <div className="todayItem">{nextSixHours[3].precipitation}mm</div>
                     </div>
                     <div className="one-hour-box">
-                        <div id="currentTimePlus9" className="todayItem">{nextSixHours[4].time}</div>
-                        <div  className="todayItem">
-                            <img id="currentIconPlus9" src={nextSixHours[4].icon}></img>
+                        <div id="currentTimePlus12" className="todayItem">{nextSixHours[4].time}</div>
+                        <div className="todayItem">
+                            <img id="currentIconPlus12" src={nextSixHours[4].icon}></img>
                         </div>
-                        <div id="currentTempSmallPlus9" className="todayItem">{nextSixHours[4].temp}°</div>
+                        <div id="currentTempSmallPlus12" className="todayItem">{nextSixHours[4].temp}°</div>
                         <div className="todayItem">{nextSixHours[4].precipitation}mm</div>
                     </div>
                     <div className="one-hour-box">
-                        <div id="currentTimePlus12" className="todayItem">{nextSixHours[5].time}</div>
+                        <div id="currentTimePlus15" className="todayItem">{nextSixHours[5].time}</div>
                         <div className="todayItem">
-                            <img id="currentIconPlus12" src={nextSixHours[5].icon}></img>
+                            <img id="currentIconPlus15" src={nextSixHours[5].icon}></img>
                         </div>
-                        <div id="currentTempSmallPlus12" className="todayItem">{nextSixHours[5].temp}°</div>
+                        <div id="currentTempSmallPlus15" className="todayItem">{nextSixHours[5].temp}°</div>
                         <div className="todayItem">{nextSixHours[5].precipitation}mm</div>
-                    </div>
-                    <div className="one-hour-box">
-                        <div id="currentTimePlus15" className="todayItem">{nextSixHours[6].time}</div>
-                        <div className="todayItem">
-                            <img id="currentIconPlus15" src={nextSixHours[6].icon}></img>
-                        </div>
-                        <div id="currentTempSmallPlus15" className="todayItem">{nextSixHours[6].temp}°</div>
-                        <div className="todayItem">{nextSixHours[6].precipitation}mm</div>
                     </div>
                 </div>
             </div>
