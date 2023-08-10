@@ -63,8 +63,19 @@ img {
     margin-right: 1rem;
     border-bottom-left-radius: 20px 20px;
     border-bottom-right-radius: 20px 20px;
+    max-width: 23rem;
+    overflow-x: scroll;
 }
 
+.todayBox::-webkit-scrollbar {
+    display: none;
+}
+
+.one-hour-box {
+    padding: 0.2rem;
+    margin-right: 0.2rem;
+}
+  
 
 #ten-day-forecast {
     margin-top: 5%;
