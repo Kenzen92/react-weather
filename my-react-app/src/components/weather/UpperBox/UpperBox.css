@@ -21,13 +21,13 @@ img {
 }
 .todayDescription{
     background-color: rgba(47, 117, 187, .7);
-    margin-top: 15%;
+    margin-top: 1rem;
     margin-bottom: 2px;
     margin-left: 1rem;
     margin-right: 1rem;
     border-top-left-radius: 20px 20px;
     border-top-right-radius: 20px 20px;
-    padding: 0.2rem;
+    padding: 0.5rem;
 }
 
 .newBox {
@@ -64,6 +64,7 @@ img {
     border-bottom-left-radius: 20px 20px;
     border-bottom-right-radius: 20px 20px;
 }
+
 
 #ten-day-forecast {
     margin-top: 5%;

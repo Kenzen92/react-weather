@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import UpperBox from './UpperBox/UpperBox';
 import TenDayBox from './TenDayBox/TenDayBox';
 import TodayBox from './TodayBox/TodayBox';
+import sunnyImage from '../../assets/images/sunny.jpg'; // Import the image directly
 
-const WeatherComponent = ({ lat, lon }) => {
+const WeatherComponent = ({ lat, lon, locationName }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C%20${lon}?unitGroup=metric&include=current%2Chours&key=LTWTSET5LFC62FHPV3WWRHV93&contentType=json`)
+    fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C%20${lon}?unitGroup=metric&key=LTWTSET5LFC62FHPV3WWRHV93&contentType=json`)
       .then(response => response.json()) // Parse response JSON
       .then(data => {
-        console.log(data);
         setWeatherData(data);
       })
       .catch(err => {
@@ -22,10 +22,17 @@ const WeatherComponent = ({ lat, lon }) => {
     return <div>Loading...</div>;
   }
 
+  const boxContainerStyle = {
+    backgroundImage: `url(${sunnyImage})`, // Replace with your image path
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    padding: '20px', // Add some padding for spacing
+  };
+
   return (
     <>
-    <div className="box-container">
-          <UpperBox weatherData={weatherData} />
+    <div className="box-container" style={boxContainerStyle}>
+          <UpperBox weatherData={weatherData} locationName={locationName}/>
           <TodayBox  weatherData={weatherData} />
           <TenDayBox weatherData={weatherData} />
           

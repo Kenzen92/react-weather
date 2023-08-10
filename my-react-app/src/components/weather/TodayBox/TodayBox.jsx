@@ -63,10 +63,15 @@ function TodayBox({ weatherData }) {
     for (let i=0; i< 6; i++) {
         const dateTimeEpoch = oneDayOfHours[currentFutureHour].datetimeEpoch * 1000;
         currentFutureHour += 1;
-        console.log(currentFutureHour);
         
         // Create a new Date object in UTC
         let entryTimestamp = new Date(dateTimeEpoch);
+
+        // check if current time is the last hour of current day, and iterate day if so
+        if ((entryTimestamp).getHours() == 23) {
+            oneDayOfHours = entry[1]['hours'];
+            currentFutureHour = 0;
+        }
 
         // Get the local timezone offset in minutes
         const localTimezoneOffset = entryTimestamp.getTimezoneOffset();
@@ -74,12 +79,7 @@ function TodayBox({ weatherData }) {
         // Adjust the time by adding the local timezone offset
         entryTimestamp.setMinutes(entryTimestamp.getMinutes() + localTimezoneOffset);
 
-        console.log(entryTimestamp);
 
-        // check if current time is the last hour of current day, and iterate day if so
-        if ((entryTimestamp).getHours() == 23) {
-            oneDayOfHours = entry[1]['hours']
-        }
         // check if the entry is less than or equal to current time, if so skip
         if (entryTimestamp <= currentTimestamp) {
             console.log("entry time less than current time");
@@ -97,7 +97,6 @@ function TodayBox({ weatherData }) {
             nextSixHours[i] = {"time": formattedTime, "temp": temp, "icon": icon, "precipitation": precipitation};
         }
     }
-    console.log(nextSixHours);
 
   return (
     <div className="todayBoxBackground">

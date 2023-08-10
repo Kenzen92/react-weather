@@ -6,18 +6,18 @@ import highIcon from '../../../assets/images/high_temp.png'
 
 
 {/*  Use conditional rendering to display the weather data here */}
-function UpperBox({ weatherData }) {
+function UpperBox({ weatherData, locationName }) {
+  
   return (
     <div className='newBox'>
-        <>
-          <div className='placeName'>{weatherData.resolvedAddress}</div>
+
+          <div className='placeName'>{locationName}</div>
           <div className='temp'>{weatherData.currentConditions.temp}°</div>
           <div className='description'>{weatherData.currentConditions.conditions}</div>
           <div className='miniTemps'>
             <div className='low miniTemp'><img className="arrows" src={lowIcon}/> {weatherData.days[0].tempmin}°</div>
             <div className='high miniTemp'><img className="arrows" src={highIcon}/> {weatherData.days[0].tempmax}°</div>
           </div>
-        </>
     </div>
   );
 }
