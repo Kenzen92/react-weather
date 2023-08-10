@@ -5,21 +5,26 @@ import './App.css'
 function App() {
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
+  const [geolocationFetched, setGeolocationFetched] = useState(false); // Add this state
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {
-      setLat(position.coords.latitude); // Correct usage of useState setter
-      setLon(position.coords.longitude); // Correct usage of useState setter
+      setLat(position.coords.latitude);
+      setLon(position.coords.longitude);
+      setGeolocationFetched(true); // Mark geolocation as fetched
     });
-  }, []); // Empty dependency array means this effect runs only once on mount
-
+  }, []);
 
   return (
     <>
-      <Weather 
-      lat={lat}
-      lon={lon}
-      />
+      {geolocationFetched ? (
+        <Weather 
+          lat={lat}
+          lon={lon}
+        />
+      ) : (
+        <div>Loading geolocation...</div>
+      )}
     </>
   )
 }
