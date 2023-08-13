@@ -14,13 +14,13 @@ function App() {
       setLat(position.coords.latitude);
       setLon(position.coords.longitude);
 
-      const geocodeApiKey = 'import.meta.env.VITE_GEOLOCATION_API_KEY';
+      const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
       const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${geocodeApiKey}`;
 
       try {
         const response = await fetch(geocodeUrl);
         const data = await response.json();
-
+        console.log(data);
         if (data.results.length > 0) {
           let cityName = "";
           let countryName = "";

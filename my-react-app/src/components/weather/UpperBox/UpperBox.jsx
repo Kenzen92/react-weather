@@ -5,6 +5,7 @@ import highIcon from '../../../assets/images/high_temp.png'
 
 
 
+
 {/*  Use conditional rendering to display the weather data here */}
 function UpperBox({ weatherData, locationName }) {
   

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import "./TenDayBox.css"
-import DayForecast from '../DayForecast/DayForecast';
+import { motion } from 'framer-motion'
+import "./DayForecast.css"
+
 import snowIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
 import snowShowersDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
 import snowShowersNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-night.png';
@@ -40,33 +41,50 @@ const weatherIcons = {
     'wind': windIcon,
     // ... add other conditions here ...
 };
-  
 
-function TenDayBox({ weatherData }) {  
-    const daysOfTheWeek = ['Mon', "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    const date = new Date(weatherData.days[0]['datetime'])
-    const firstDay = date.getDay();
-    const [openIndex, setOpenIndex] = React.useState(-1);
-    let [hidden, setHidden] = React.useState(true);
 
-const handleDayClick = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
-    setHidden(hidden = (!hidden));
-};
-
-return (
-    <div id="ten-day-forecast">
-        {weatherData.days.slice(1).map((dayData, index) => (
-            <DayForecast
-                key={index}
-                dayData={dayData}
-                dayName={daysOfTheWeek[(firstDay + index) % 7]}
-                isOpen={openIndex === index}
-                onDayClick={() => handleDayClick(index)}
-            />
-        ))}
-    </div>
-);
+function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
+    
+    return (
+        <motion.div
+            animate={{ height: isOpen ? 300 : 35 }}
+            onClick={onDayClick}
+            className="ten-day-forecast-item"
+        >
+            <div className="mini-content">
+                <div className="day-of-the-week">{dayName}</div>
+                <div className="ten-day-icon"><img src={weatherIcons[dayData['icon']]} alt="Weather Icon" /></div>
+                <div className="low"><img className="arrows" src={lowIcon} alt="Low Icon" />{dayData['tempmin']}</div>
+                <div className="high"><img className="arrows" src={highIcon} alt="High Icon" />{dayData['tempmax']}</div>
+            </div>
+            <div className="ten-day-forecast-details">
+                <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: hidden ? 0 : 1, height: hidden ? 0 : 'auto' }}
+                transition={{ duration: 0.3 }}
+                >
+                    <div className="grid-container">
+                        <div className="description">{dayData['description']}</div>
+                        <div className="humidity">Humidity: {dayData['humidity']}</div>
+                        <div className="day-feels-like-max">
+                            <img className="arrows" src={highIcon} alt="High Icon" />
+                            Feels like {dayData['feelslikemax']}
+                        </div>
+                        <div className="day-feels-like-min">
+                            <img className="arrows" src={lowIcon} alt="Low Icon" />
+                            Feels like {dayData['feelslikemin']}
+                        </div>
+                        <div className="sunrise">Sunrise {dayData['sunrise']}</div>
+                        <div className="sunset">Sunset {dayData['sunset']}</div>
+                        <div className="uvIndex">UV Index {dayData['uvindex']}</div>
+                        <div className="uvRisk">UV risk level {dayData['severerisk']}</div>
+                    </div>
+                </motion.div>
+                
+            </div>
+        </motion.div>
+    );
 }
 
-export default TenDayBox;
+export default DayForecast;
+

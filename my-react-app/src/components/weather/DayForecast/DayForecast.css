@@ -1,0 +1,87 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+
+  #ten-day-forecast {
+    margin-top: 5%;
+    background-color: rgba(47, 117, 187, .7);
+    border-radius: 20px 20px;
+    margin-bottom: 5%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.ten-day-forecast-item {
+    align-content: space-between;
+    align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 0.2rem;
+    font-size: 1rem;
+    border-top: 1px solid rgba(13, 0, 128, .3);
+    border-bottom: 1px solid rgba(13, 0, 128, .3);
+    height: auto;
+    transition: height 0.7s;
+    overflow: hidden; /* Hide overflowing content */
+}
+
+.ten-day-forecast-item:first-child {
+    border-top: none; /* Remove top border from the first element */
+}
+
+.ten-day-forecast-item:last-child {
+    border-bottom: none; /* Remove bottom border from the last element */
+}
+
+.mini-content {
+    display: grid;
+    grid-template-areas:
+    "day-of-the-week ten-day-icon low high";
+    grid-template-columns: inherit;
+}
+
+.day-feels-like-max, .day-feels-like-min {
+    display: flex;
+    align-items: center;
+}
+
+
+.arrows{
+    max-width: 1rem;
+}
+
+.low, .high {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.last {
+    border-bottom: none;
+}
+.first {
+    border-top: none;
+}
+.day-of-the-week, .high-low{
+    padding: 10px 0;
+    margin-block: auto;
+    text-align: center;
+}
+.high-low {
+    display: flex;
+}
+.ten-day-icon {
+    margin-block: auto;
+}

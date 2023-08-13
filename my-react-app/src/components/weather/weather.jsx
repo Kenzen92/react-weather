@@ -26,18 +26,18 @@ const WeatherComponent = ({ lat, lon, locationName }) => {
   const boxContainerStyle = {
     backgroundImage: `url(${sunnyImage})`, // Replace with your image path
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    padding: '20px', // Add some padding for spacing
+    backgroundPosition: 'top',
   };
 
   return (
     <>
     <div className="box-container" style={boxContainerStyle}>
+      <div className="page-content-container">
           <UpperBox weatherData={weatherData} locationName={locationName}/>
           <TodayBox  weatherData={weatherData} />
           <TenDayBox weatherData={weatherData} />
-          
         </div>
+    </div>
     </>
   );
 };

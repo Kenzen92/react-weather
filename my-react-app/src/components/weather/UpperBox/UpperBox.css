@@ -63,9 +63,12 @@ img {
     margin-right: 1rem;
     border-bottom-left-radius: 20px 20px;
     border-bottom-right-radius: 20px 20px;
-    max-width: 23rem;
     overflow-x: scroll;
 }
+
+/* .todayBoxBackground {
+    width: 100%;
+} */
 
 .todayBox::-webkit-scrollbar {
     display: none;
@@ -76,55 +79,6 @@ img {
     margin-right: 0.2rem;
 }
   
-
-#ten-day-forecast {
-    margin-top: 5%;
-    background-color: rgba(47, 117, 187, .7);
-    border-radius: 20px 20px;
-    margin-bottom: 5%;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.ten-day-forecast-item {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: 0.2rem;
-    font-size: 1rem;
-    border-top: 1px solid rgba(13, 0, 128, .3);
-    border-bottom: 1px solid rgba(13, 0, 128, .3);
-}
-
-.arrows{
-    max-width: 1rem;
-}
-
-.low, .high {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.last {
-    border-bottom: none;
-}
-.first {
-    border-top: none;
-}
-.day-of-the-week, .high-low{
-    padding: 10px 0;
-    margin-block: auto;
-    text-align: center;
-}
-.high-low {
-    display: flex;
-}
-.ten-day-icon {
-    margin-block: auto;
-}
 
 @media only screen and (min-width: 800px) {
     img {
