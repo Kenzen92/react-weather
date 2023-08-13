@@ -47,7 +47,7 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
     
     return (
         <motion.div
-            animate={{ height: isOpen ? 300 : 35 }}
+            animate={{ height: isOpen ? 235 : 35 }}
             onClick={onDayClick}
             className="ten-day-forecast-item"
         >
@@ -66,18 +66,24 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                     <div className="grid-container">
                         <div className="description">{dayData['description']}</div>
                         <div className="humidity">Humidity: {dayData['humidity']}</div>
-                        <div className="day-feels-like-max">
-                            <img className="arrows" src={highIcon} alt="High Icon" />
-                            Feels like {dayData['feelslikemax']}
+                        <div className="minMax">
+                            <div className="day-feels-like-max">
+                                <img className="arrows" src={highIcon} alt="High Icon" />
+                                Feels like {dayData['feelslikemax']}
+                            </div>
+                            <div className="day-feels-like-min">
+                                <img className="arrows" src={lowIcon} alt="Low Icon" />
+                                Feels like {dayData['feelslikemin']}
+                            </div>
                         </div>
-                        <div className="day-feels-like-min">
-                            <img className="arrows" src={lowIcon} alt="Low Icon" />
-                            Feels like {dayData['feelslikemin']}
+                        <div className="sunrise_sunset">
+                            <div className="sunrise">Sunrise {dayData['sunrise']}</div>
+                            <div className="sunset">Sunset {dayData['sunset']}</div>
                         </div>
-                        <div className="sunrise">Sunrise {dayData['sunrise']}</div>
-                        <div className="sunset">Sunset {dayData['sunset']}</div>
-                        <div className="uvIndex">UV Index {dayData['uvindex']}</div>
-                        <div className="uvRisk">UV risk level {dayData['severerisk']}</div>
+                        <div className="uvInfo">
+                            <div className="uvIndex">UV Index {dayData['uvindex']}</div>
+                            <div className="uvRisk">UV risk level {dayData['severerisk']}</div>
+                        </div>
                     </div>
                 </motion.div>
                 

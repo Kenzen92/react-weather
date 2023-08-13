@@ -1,9 +1,39 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 
+    "description description"
+    "humidity feels-like"
+    "sunrise_sunset uvInfo";
     gap: 20px;
     align-items: center;
   }
+
+ .description {
+    grid-area: description;
+ }
+.humidity {
+    grid-area: humidity;
+}
+.minMax {
+    grid-area: feels-like;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.day-feels-like-min, .day-feels-like-max {
+    display: flex;
+    align-content: center;
+}
+.sunrise_sunset {
+    grid-area: sunrise_sunset;
+    display: flex;
+    flex-direction: column;
+}
+.uvInfo {
+    grid-area: uvInfo;
+    display: flex;
+    flex-direction: column;
+}
   
   .grid-item {
     display: flex;
@@ -49,11 +79,6 @@
     grid-template-areas:
     "day-of-the-week ten-day-icon low high";
     grid-template-columns: inherit;
-}
-
-.day-feels-like-max, .day-feels-like-min {
-    display: flex;
-    align-items: center;
 }
 
 
