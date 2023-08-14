@@ -66,6 +66,7 @@ img {
     overflow-x: scroll;
 }
 
+
 .todayBox::-webkit-scrollbar {
     display: none;
 }
