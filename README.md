@@ -39,8 +39,6 @@ npm install
 Usage
 To use the WeatherApp, you need to provide the latitude (lat), longitude (lon), and location name when rendering the WeatherComponent in your application. Here's an example of how to use the WeatherComponent:
 
-jsx
-Copy code
 import React from 'react';
 import WeatherComponent from './path-to-WeatherComponent/WeatherComponent';
 
