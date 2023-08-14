@@ -43,6 +43,7 @@ function TodayBox({ weatherData }) {
     const currentTimestamp = new Date().getTime();
     const nextSixHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const entry = weatherData['days'];
+    let oneDayOfHours = entry[0]['hours'];
     let firstFutureTime = -1;
 
     // Iterate through the API response to find the first hour in the future
@@ -53,16 +54,23 @@ function TodayBox({ weatherData }) {
             break;
         }
     }
+    if (firstFutureTime === -1) {
+        oneDayOfHours = entry[1]['hours'];
+        firstFutureTime = 0;
+    }
 
     // Get the timezone offset in milliseconds
     const timezoneOffset = entry['tzoffset']; // Convert minutes to milliseconds
     let currentFutureHour = firstFutureTime;
-    let oneDayOfHours = entry[0]['hours'];
+    console.log("current future", currentFutureHour);
+    
     
     // iterate through the 6 time slots
     for (let i=-1; i< nextSixHours.length; i++) {
         const dateTimeEpoch = oneDayOfHours[currentFutureHour].datetimeEpoch * 1000;
         currentFutureHour += 1;
+
+        
         
         // Create a new Date object in UTC
         let entryTimestamp = new Date(dateTimeEpoch);

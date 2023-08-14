@@ -1,5 +1,6 @@
 .grid-container {
     display: grid;
+    font-size: smaller;
     grid-template-areas: 
     "description description"
     "humidity feels-like"
@@ -61,7 +62,7 @@
     font-size: 1rem;
     border-top: 1px solid rgba(13, 0, 128, .3);
     border-bottom: 1px solid rgba(13, 0, 128, .3);
-    height: auto;
+    height: 600px;
     transition: height 0.7s;
     overflow: hidden; /* Hide overflowing content */
 }
@@ -82,7 +83,6 @@
     align-items: center;
 }
 
-
 .arrows{
     max-width: 1rem;
 }
@@ -101,8 +101,6 @@
     border-top: none;
 }
 .day-of-the-week, .high-low{
-    /* padding: 10px 0;
-    margin-block: auto; */
     text-align: center;
 }
 .high-low {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'
 import "./DayForecast.css"
+import HumidityGraph from '../HumidityGraph/HumitidyGraph'
 
 import snowIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
 import snowShowersDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
@@ -47,7 +48,7 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
     
     return (
         <motion.div
-            animate={{ height: isOpen ? 200 : 35 }}
+            animate={{ height: isOpen ? 500 : 35 }}
             onClick={onDayClick}
             className="ten-day-forecast-item"
         >
@@ -65,7 +66,10 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                 >
                     <div className="grid-container">
                         <div className="description">{dayData['description']}</div>
-                        <div className="humidity">Humidity: {dayData['humidity']}</div>
+                        {/* <div className="humidity">Humidity: {dayData['humidity']}</div> */}
+                        <div className="humidity">
+                            <HumidityGraph humidity={dayData['humidity']} />
+                        </div>
                         <div className="minMax">
                             <div className="day-feels-like-max">
                                 <img className="arrows" src={highIcon} alt="High Icon" />
