@@ -12,6 +12,7 @@ API Key
 Contributing
 License
 Introduction
+
 WeatherApp is a web application that allows users to view weather information for a given location. The application utilizes React components to display the weather data, including current weather, today's forecast, and a ten-day forecast.
 
 Features
@@ -23,19 +24,14 @@ Follow these steps to set up the WeatherApp locally:
 
 Clone this repository to your local machine using the following command:
 
-bash
-Copy code
 git clone https://github.com/your-username/weather-app.git
+
 Navigate to the project directory:
-
-bash
-Copy code
 cd weather-app
-Install the required dependencies:
 
-bash
-Copy code
+Install the required dependencies:
 npm install
+
 Usage
 To use the WeatherApp, you need to provide the latitude (lat), longitude (lon), and location name when rendering the WeatherComponent in your application. Here's an example of how to use the WeatherComponent:
 
@@ -62,10 +58,8 @@ The WeatherApp fetches weather data from an external API. To use the API, you ne
 
 Sign up or log in to the Visual Crossing Weather API.
 Once logged in, navigate to the API key section and generate a new API key.
-Create a .env.local file in the root directory of the project and add your API key as follows:
 
-env
-Copy code
+Create a .env.local file in the root directory of the project and add your API key as follows:
 VITE_WEATHER_API_KEY=your-api-key
 Replace your-api-key with the API key you generated.
 
