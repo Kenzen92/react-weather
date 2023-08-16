@@ -2,11 +2,13 @@
     display: grid;
     font-size: smaller;
     grid-template-areas: 
-    "description description"
+    "humidity description"
     "humidity feels-like"
-    "sunrise_sunset uvInfo";
+    "humidity uvInfo"
+    "humidity sunrise_sunset";
     gap: 20px;
     align-items: center;
+    justify-content: space-around;
   }
 
  .description {

@@ -15,40 +15,56 @@ const data = {
         {
             label: 'humidity',
             data: [humidityValue],
-            backgroundColor: 'rgba(156, 156, 156, 0.8)', // You can customize the color here
+            backgroundColor: 'rgba(256, 256, 256, 0.8)', // You can customize the color here
             borderColor: 'rgba(156, 156, 156, 1)',
-            borderWidth: 1
+            borderWidth: 1,
+            barPercentage: 1
         }
     ]
 }
 
-const options = {
+
+  const options = {
+    aspectRatio: 0.5, // Adjust this value as needed for your desired aspect ratio
     scales: {
         y: {
             beginAtZero: true,
-            max: 100, // Set the maximum scale value to 100
+            max: 100,
             title: {
-                display: false // Hide the Y-axis label
+                display: false
             },
             grid: {
-                color: 'rgba(0, 0, 0, 1)' // Customize grid color
+                color: 'rgba(256, 256, 256, 0.8)'
+            },
+            ticks: {
+                color: 'rgba(256, 256, 256, 0.8)' // Customize the color of the y-axis ticks
+            }
+        },
+        x: {
+            ticks: {
+                color: 'rgba(256, 256, 256, 0.8)'
             }
         }
     },
     plugins: {
         legend: {
-            display: false // Hide the legend
+            display: false
+        },
+        beforeDraw: (chart, args, options) => {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = options.customCanvasBackgroundColor.color || '#99ffff';
+            ctx.fillRect(0, 0, chart.width, chart.height);
+            ctx.restore();
         }
     }
-}
+};
 
     return (
         <div>
             <div className = "humidity-bar-container">
                 <Bar className="humidity-bar"
-                    style = {
-                        {width: '5rem'}
-                    }
                     data = {data}
                     options = {options}
                 ></Bar>
