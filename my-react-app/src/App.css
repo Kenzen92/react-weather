@@ -47,3 +47,27 @@
 .read-the-docs {
   color: #888;
 }
+
+@media only screen and (max-width: 400px) {
+  .page-content-container {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right:0;
+  }
+  .todayDescription {
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .todayBox {
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #ten-day-forecast {
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+  }
+}

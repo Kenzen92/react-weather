@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'
 import "./DayForecast.css"
-import HumidityGraph from '../HumidityGraph/HumitidyGraph'
-import UVGraph from '../UVGraph/UVGraph'
 import DayGraph from '../DayCharts/DayCharts';
 
 import snowIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
@@ -44,12 +42,13 @@ const weatherIcons = {
     'thunder-showers-day': thunderShowersDayIcon,
     'thunder-showers-night': thunderShowersNightIcon,
     'wind': windIcon,
-    // ... add other conditions here ...
 };
 
 
 function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
     console.log(dayData);
+
+        
     return (
         <motion.div
             animate={{ height: isOpen ? 1000 : 35 }}
@@ -69,29 +68,21 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                 transition={{ duration: 0.3 }}
                 >
                     <div className="grid-container">
-                        
-                    
                         <div className="description">{dayData['description']}</div>
-                        <div className="dayGraph"><DayGraph dayWeather={dayData} /></div>
-                        {/* <div className="humidity">Humidity: {dayData['humidity']}</div> */}
-                        {/* <div className="humidity">
-                            <HumidityGraph humidity={dayData['humidity']} />
-                        </div> */}
-                        {/* <div className="minMax">
-                            <div className="day-feels-like-max">
-                                Feels like <img className="arrows" src={highIcon} alt="High Icon" />{dayData['feelslikemax']}   
+                        <div class="chart-container" >
+                            <div className="dayGraph"><DayGraph dayWeather={dayData} /></div>
+                        </div>
+                        <div className="day-data-below-chart">
+                            <div className="sunrise_sunset">
+                                <div className="sunrise"><img src={sunrise}></img>{dayData['sunrise']}</div>
+                                <div className="sunset"><img src={sunset}></img>{dayData['sunset']}</div>
                             </div>
-                            <div className="day-feels-like-min">
-                                Feels like <img className="arrows" src={lowIcon} alt="Low Icon" />{dayData['feelslikemin']}
+                            <div className="wind">
+                                <div className="windspeed">Windspeed: {dayData["windspeed"]}</div>
+                                <div className="wind-gusts">Max wind gusts: {dayData["windgust"]}</div>
+                                <div className="wind-direction">Wind direction: {dayData["winddir"]}</div>
                             </div>
                         </div>
-                        <div className="sunrise_sunset">
-                            <div className="sunrise"><img src={sunrise} alt="sunrise symbol"></img>{dayData['sunrise']}</div>
-                            <div className="sunset"><img src={sunset} alt="sunset symbol"></img> {dayData['sunset']}</div>
-                        </div> */}
-                        {/* <div className="uvInfo">
-                            <UVGraph uvLevel={dayData['uvindex']} uvRisk={dayData['severerisk']} />
-                        </div> */}
                     </div>
                     
                 </motion.div>

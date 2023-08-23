@@ -1,5 +1,6 @@
 import React from 'react';
 import "./DayCharts.css";
+
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -22,7 +23,7 @@ ChartJS.register(
     Legend
   );
 
-function DayGraph({ dayWeather }) {
+function DayGraph({ dayWeather, windowWidth }) {
     const dayWeatherHours = dayWeather['hours'];
     const hourLabels = dayWeatherHours.map(hour => hour['datetime'].slice(0, -3));
     const humidityData = dayWeatherHours.map(hour => hour['humidity']);
@@ -36,32 +37,35 @@ function DayGraph({ dayWeather }) {
             {
                 label: 'Humidity',
                 data: humidityData,
-                borderColor: 'blue',
-                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                borderColor: 'grey',
+                backgroundColor: 'rgba(255, 165, 0, 0.2)',
                 fill: true,
-
+                tension: 0.3
             },
             {
                 label: 'Temperature',
                 data: tempData,
-                borderColor: 'orange',
-                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                borderColor: 'red',
+                backgroundColor: 'rgba(255, 165, 0, 0.2)',
                 fill: true,
+                tension: 0.3
             },
             {
                 label: 'Precipitation Chance',
                 data: precipitationData,
-                borderColor: 'green',
-                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                borderColor: 'blue',
+                backgroundColor: 'rgba(255, 165, 0, 0.2)',
                 fill: true,
+                tension: 0.3
 
             },
             {
-                label: 'UV Risk',
+                label: 'UV Index',
                 data: uvIndexData,
-                borderColor: 'orange',
+                borderColor: 'yellow',
                 backgroundColor: 'rgba(255, 165, 0, 0.2)',
                 fill: true,
+                tension: 0.3
             }
         ]
     };
@@ -69,6 +73,8 @@ function DayGraph({ dayWeather }) {
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
+        aspectRatio: 0.5,
         plugins: {
             legend: {
                 display: true,
@@ -102,7 +108,7 @@ function DayGraph({ dayWeather }) {
                 }
             }
         }
-    };
+    }; 
     
 
     return (

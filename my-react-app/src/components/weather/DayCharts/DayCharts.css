@@ -1,7 +1,8 @@
 .day-line-container {
     position: relative; 
     width: 100%; /* Set the width of the container to 100% of its parent */
-    max-width: 1000px; /* Set a maximum width for the container if desired */
+    height: 400px;
+    max-width: 1200px; /* Set a maximum width for the container if desired */
     max-height: 700px;
 }
 

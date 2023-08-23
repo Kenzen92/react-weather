@@ -31,20 +31,40 @@
     display: flex;
     align-content: center;
 }
-.sunrise_sunset {
-    grid-area: sunrise_sunset;
+.day-data-below-chart{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+.sunrise_sunset {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 } 
 .sunrise {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 1rem;
+    align-items: center;
 }
 .sunset {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 1rem;
+    align-items: center;
+}
+.wind {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.windspeed, .wind-gusts, .winddir {
+    padding: 1rem;
 }
 .uvInfo {
     grid-area: uvInfo;
@@ -72,8 +92,8 @@
     align-content: space-between;
     align-items: center;
     grid-template-columns: repeat(4, 1fr);
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-bottom: 0.2rem;
     font-size: 1rem;
     border-top: 1px solid rgba(13, 0, 128, .3);
@@ -125,3 +145,17 @@
 .ten-day-icon {
     margin-block: auto;
 }
+
+.chart-container {
+    position: relative; 
+    width: 100%; 
+    height: auto;
+}
+
+
+@media only screen and (min-width: 800px) {
+    .ten-day-forecast-item{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+  }
