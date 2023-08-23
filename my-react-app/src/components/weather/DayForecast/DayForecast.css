@@ -1,14 +1,18 @@
 .grid-container {
-    display: grid;
+    /* display: grid;
     font-size: smaller;
     grid-template-areas: 
     "humidity description"
     "humidity feels-like"
     "humidity uvInfo"
-    "humidity sunrise_sunset";
-    gap: 20px;
+    "humidity sunrise_sunset"
+    "humidity dayGraph"; */
+    /* gap: 20px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-around; */
+  }
+  .dayGraph{
+    grid-area: dayGraph;
   }
 
  .description {
@@ -29,6 +33,16 @@
 }
 .sunrise_sunset {
     grid-area: sunrise_sunset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+} 
+.sunrise {
+    display: flex;
+    flex-direction: column;
+}
+.sunset {
     display: flex;
     flex-direction: column;
 }

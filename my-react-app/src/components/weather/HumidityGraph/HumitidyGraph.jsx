@@ -8,7 +8,6 @@ ChartJS.register(
 )
 function HumidityGraph( humidity ) {
 const humidityValue = humidity['humidity'];
-console.log(humidityValue);
 const data = {
     labels: ['Humidity'],
     datasets: [

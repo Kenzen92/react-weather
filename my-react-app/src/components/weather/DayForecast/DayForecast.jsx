@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'
 import "./DayForecast.css"
 import HumidityGraph from '../HumidityGraph/HumitidyGraph'
+import UVGraph from '../UVGraph/UVGraph'
+import DayGraph from '../DayCharts/DayCharts';
 
 import snowIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow.png';
 import snowShowersDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/snow-showers-day.png';
@@ -21,6 +23,8 @@ import clearDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/
 import clearNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-night.png';
 import lowIcon from '../../../assets/images/low_temp.png'
 import highIcon from '../../../assets/images/high_temp.png'
+import sunrise from '../../../assets/images/sunrise.png'
+import sunset from '../../../assets/images/sunset.png'
 
 
 const weatherIcons = {
@@ -45,10 +49,10 @@ const weatherIcons = {
 
 
 function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
-    
+    console.log(dayData);
     return (
         <motion.div
-            animate={{ height: isOpen ? 500 : 35 }}
+            animate={{ height: isOpen ? 1000 : 35 }}
             onClick={onDayClick}
             className="ten-day-forecast-item"
         >
@@ -65,30 +69,31 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                 transition={{ duration: 0.3 }}
                 >
                     <div className="grid-container">
+                        
+                    
                         <div className="description">{dayData['description']}</div>
+                        <div className="dayGraph"><DayGraph dayWeather={dayData} /></div>
                         {/* <div className="humidity">Humidity: {dayData['humidity']}</div> */}
-                        <div className="humidity">
+                        {/* <div className="humidity">
                             <HumidityGraph humidity={dayData['humidity']} />
-                        </div>
-                        <div className="minMax">
+                        </div> */}
+                        {/* <div className="minMax">
                             <div className="day-feels-like-max">
-                                <img className="arrows" src={highIcon} alt="High Icon" />
-                                Feels like {dayData['feelslikemax']}
+                                Feels like <img className="arrows" src={highIcon} alt="High Icon" />{dayData['feelslikemax']}   
                             </div>
                             <div className="day-feels-like-min">
-                                <img className="arrows" src={lowIcon} alt="Low Icon" />
-                                Feels like {dayData['feelslikemin']}
+                                Feels like <img className="arrows" src={lowIcon} alt="Low Icon" />{dayData['feelslikemin']}
                             </div>
                         </div>
                         <div className="sunrise_sunset">
-                            <div className="sunrise">Sunrise {dayData['sunrise']}</div>
-                            <div className="sunset">Sunset {dayData['sunset']}</div>
-                        </div>
-                        <div className="uvInfo">
-                            <div className="uvIndex">UV Index {dayData['uvindex']}</div>
-                            <div className="uvRisk">UV risk level {dayData['severerisk']}</div>
-                        </div>
+                            <div className="sunrise"><img src={sunrise} alt="sunrise symbol"></img>{dayData['sunrise']}</div>
+                            <div className="sunset"><img src={sunset} alt="sunset symbol"></img> {dayData['sunset']}</div>
+                        </div> */}
+                        {/* <div className="uvInfo">
+                            <UVGraph uvLevel={dayData['uvindex']} uvRisk={dayData['severerisk']} />
+                        </div> */}
                     </div>
+                    
                 </motion.div>
                 
             </div>
