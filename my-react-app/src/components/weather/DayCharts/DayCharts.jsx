@@ -26,6 +26,7 @@ function DayGraph({ dayWeather }) {
     const dayWeatherHours = dayWeather['hours'];
     const hourLabels = dayWeatherHours.map(hour => hour['datetime'].slice(0, -3));
     const humidityData = dayWeatherHours.map(hour => hour['humidity']);
+    const tempData = dayWeatherHours.map(hour => hour['temp']);
     const precipitationData = dayWeatherHours.map(hour => hour['precipprob']);
     const uvIndexData = dayWeatherHours.map(hour => (hour['uvindex'] / 10) * 100); // Convert 0-10 scale to 0-100
 
@@ -39,6 +40,13 @@ function DayGraph({ dayWeather }) {
                 backgroundColor: 'rgba(0, 0, 255, 0.2)',
                 fill: true,
 
+            },
+            {
+                label: 'Temperature',
+                data: tempData,
+                borderColor: 'orange',
+                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                fill: true,
             },
             {
                 label: 'Precipitation Chance',
