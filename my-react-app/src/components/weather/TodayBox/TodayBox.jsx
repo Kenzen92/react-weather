@@ -44,6 +44,7 @@ function TodayBox({ weatherData }) {
     const nextSixHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const entry = weatherData['days'];
     let oneDayOfHours = entry[0]['hours'];
+    console.log("one day of hours", oneDayOfHours);
     let firstFutureTime = -1;
 
     // Iterate through the API response to find the first hour in the future
@@ -57,56 +58,47 @@ function TodayBox({ weatherData }) {
     if (firstFutureTime === -1) {
         oneDayOfHours = entry[1]['hours'];
         firstFutureTime = 0;
+        console.log("Current time is past 11pm");
     }
 
-    // Get the timezone offset in milliseconds
-    const timezoneOffset = entry['tzoffset']; // Convert minutes to milliseconds
     let currentFutureHour = firstFutureTime;
-    console.log("current future", currentFutureHour);
-    
+    console.log("next hour is", currentFutureHour);
+    console.log(oneDayOfHours[currentFutureHour]);
     
     // iterate through the 6 time slots
-    for (let i=-1; i< nextSixHours.length; i++) {
-        const dateTimeEpoch = oneDayOfHours[currentFutureHour].datetimeEpoch * 1000;
-        currentFutureHour += 1;
-
+    for (let i=1; i< nextSixHours.length; i++) {
         
-        
-        // Create a new Date object in UTC
-        let entryTimestamp = new Date(dateTimeEpoch);
-
-        // check if current time is the last hour of current day, and iterate day if so
-        if ((entryTimestamp).getHours() == 23) {
+        if (oneDayOfHours[currentFutureHour].datetime == "23:00:00") {
+            const temp = oneDayOfHours[currentFutureHour].temp;
+            const icon = weatherIcons[oneDayOfHours[currentFutureHour]['icon']];
+            const precipitation = oneDayOfHours[currentFutureHour]['precip'];
+            nextSixHours[i] = {"time": "11pm", "temp": temp, "icon": icon, "precipitation": precipitation};
             oneDayOfHours = entry[1]['hours'];
             currentFutureHour = 0;
         }
 
-        // Get the local timezone offset in minutes
-        const localTimezoneOffset = entryTimestamp.getTimezoneOffset();
-
-        // Adjust the time by adding the local timezone offset
-        entryTimestamp.setMinutes(entryTimestamp.getMinutes() + localTimezoneOffset);
-
-
-        // check if the entry is less than or equal to current time, if so skip
-        if (entryTimestamp <= currentTimestamp) {
-            console.log("entry time less than current time");
-            continue;
-        }
-        // if not, add data to nextSixHours[i]
         else {
-            const hour = entryTimestamp.getHours();
-            const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-            const period = hour >= 12 ? 'pm' : 'am';
-            const formattedTime = `${formattedHour}${period}`;
-            console.log(formattedTime);
-            const temp = oneDayOfHours[i].temp;
-            const icon = weatherIcons[oneDayOfHours[i]['icon']];
-            const precipitation = oneDayOfHours[i]['precip'];
-            nextSixHours[i] = {"time": formattedTime, "temp": temp, "icon": icon, "precipitation": precipitation};
+            const time = oneDayOfHours[currentFutureHour]['datetime'].slice(0, -3);
+            const hours = time.slice(0, 2);
+            let timeString;
+            console.log(hours);
+            let formattedTime
+            if (parseInt(hours) > 12) {
+                formattedTime = parseInt(hours) - 12;
+                timeString = formattedTime.toString() + '' + 'pm'
+            }
+            else {
+                formattedTime = parseInt(hours);
+                timeString = formattedTime.toString() + '' + 'am'
+            }
+            
+            const temp = oneDayOfHours[currentFutureHour].temp;
+            const icon = weatherIcons[oneDayOfHours[currentFutureHour]['icon']];
+            const precipitation = oneDayOfHours[currentFutureHour]['precip'];
+            nextSixHours[i] = {"time": timeString, "temp": temp, "icon": icon, "precipitation": precipitation};
         }
+        currentFutureHour += 1;
     }
-    console.log(nextSixHours);
 
     const hourBoxes = [];
 
@@ -118,14 +110,117 @@ function TodayBox({ weatherData }) {
                     <img id={`currentIconPlus${i}`} src={nextSixHours[i].icon} alt=""></img>
                 </div>
                 <div id={`currentTempSmallPlus${i}`} className="todayItem">{nextSixHours[i].temp}°</div>
-                <div className="todayItem">{nextSixHours[i].precipitation}mm</div>
+                <div className="todayItem precip">{nextSixHours[i].precipitation}mm</div>
             </div>
         );
     }
 
+    const translations = {
+        clear: "Clear",
+        clearingpm: "Clearing in the afternoon",
+        cloudcover: "Cloud Cover",
+        cloudierpm: "Becoming cloudy in the afternoon",
+        coolingdown: "Cooling down",
+        dew: "Dew Point",
+        dow1: "Monday",
+        dow2: "Tuesday",
+        dow3: "Wednesday",
+        dow4: "Thursday",
+        dow5: "Friday",
+        dow6: "Saturday",
+        dow7: "Sunday",
+        estprecip: "Estimated precipitation",
+        heatindex: "Heat Index",
+        humidity: "Relative Humidity",
+        id: "desc",
+        latlon: "Latitude & Longitude",
+        maxt: "Maximum Temperature",
+        mint: "Minimum Temperature",
+        mostdays: "multiple days",
+        norain: "No rain expected",
+        overcast: "Cloudy skies throughout the day",
+        pop: "Chance Precipitation (%)",
+        precip: "Precipitation",
+        precipcover: "Precipitation Cover",
+        rainallday: "A chance of rain throughout the day",
+        rainam: "Morning rain",
+        rainampm: "Rain in the morning and afternoon",
+        rainchance: "A chance of rain",
+        rainclearinglater: "Rain clearing later",
+        raindays: "A chance of rain",
+        raindefinite: "Rain",
+        rainearlyam: "Early morning rain",
+        rainlatepm: "Late afternoon rain",
+        rainpm: "Afternoon rain",
+        rainsnowallday: "A chance of rain or snow throughout the day",
+        rainsnowam: "Morning rain or snow",
+        rainsnowampm: "Rain or snow in the morning and afternoon",
+        rainsnowchance: "a chance of rain or snow",
+        rainsnowclearinglater: "rain or snow clearing later",
+        rainsnowdefinite: "rain or snow",
+        rainsnowearlyam: "early morning snow or rain",
+        rainsnowlatepm: "late afternoon rain or snow",
+        rainsnowpm: "afternoon rain or snow",
+        sealevelpressure: "Sea Level Pressure",
+        similartemp: "similar temperatures continuing",
+        sky: "Sky cover",
+        snow: "Snow",
+        snowallday: "a chance of snow throughout the day",
+        snowam: "morning snow",
+        snowampm: "snow in the morning and afternoon",
+        snowchance: "a chance of snow",
+        snowclearinglater: "snow clearing later",
+        snowdays: "a chance of snow",
+        snowdefinite: "snow",
+        snowdepth: "Snow Depth",
+        snowearlyam: "early morning snow",
+        snowlatepm: "late afternoon snow",
+        snowpm: "afternoon snow",
+        solarenergy: "Solar Energy",
+        solarradiation: "Solar Radiation",
+        stationdistance: "Mean Station Distance",
+        stationInfo: "Contributing Stations",
+        stormspossible: "storms possible",
+        stormsstrong: "strong storms possible",
+        sunshine: "sunshine",
+        temp: "Temperature",
+        today: "today",
+        tomorrow: "tomorrow",
+        variablecloud: "Partly cloudy throughout the day",
+        visibility: "Visibility",
+        warmingup: "warming up",
+        wdir: "Wind direction",
+        weatherType: "Weather Type",
+        wgust: "Wind Gust",
+        windchill: "Wind Chill",
+        wspd: "Wind Speed"
+    };
+    
+    
+    function translateWeatherString(input) {
+        const words = input.toLowerCase().slice(0, -1).split(' ');
+        const resultArray = [];
+        
+        for (let i = 0; i < words.length; i++) {
+            const word = words[i];
+            if (translations[word]) {
+                resultArray.push(translations[word]);
+            } else {
+                resultArray.push(word); // Keep the original word if no translation
+            }
+        }
+        const mixedCaps = resultArray.join(' ');
+        const lowerCaps = mixedCaps.toLowerCase();
+        const result = lowerCaps.charAt(0).toUpperCase() + lowerCaps.slice(1);
+        return result;
+    }
+
+    const inputString = weatherData['description'];
+    const translatedString = translateWeatherString(inputString);
+
   return (
     <div className="todayBoxBackground">
-                <div id="todayDescription" className="todayDescription">{weatherData.description}</div>
+                <div id="todayDescription" className="todayDescription">{translatedString}</div>
                 <div className='todayBox'>
                     <div className="one-hour-box">
                         <div id="currentTime" className="todayItem">Now</div>

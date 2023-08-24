@@ -15,8 +15,13 @@
     grid-area: dayGraph;
   }
 
- .description {
+ .description-above {
+    display: none;
     grid-area: description;
+ }
+ .description-below {
+    display: block;
+    margin-top: -0.8rem;
  }
 .humidity {
     grid-area: humidity;
@@ -48,13 +53,13 @@
 .sunrise {
     display: flex;
     flex-direction: row;
-    padding: 1rem;
+    padding: 0.5rem;
     align-items: center;
 }
 .sunset {
     display: flex;
     flex-direction: row;
-    padding: 1rem;
+    padding: 0.5rem;
     align-items: center;
 }
 .wind {
@@ -63,8 +68,11 @@
     align-items: center;
     justify-content: center;
 }
-.windspeed, .wind-gusts, .winddir {
-    padding: 1rem;
+.windspeed, .wind-gusts, .wind-direction {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+    align-items: center;
 }
 .uvInfo {
     grid-area: uvInfo;
@@ -118,6 +126,9 @@
     grid-template-columns: inherit;
     align-items: center;
 }
+.ten-day-forecast-details{
+    margin-top: 1.5rem;
+}
 
 .arrows{
     max-width: 1rem;
@@ -152,10 +163,47 @@
     height: auto;
 }
 
+.tooltip {
+    position: relative;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    /* background-color: black; */
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    margin-top: 5rem;
+  }
+
 
 @media only screen and (min-width: 800px) {
     .ten-day-forecast-item{
         padding-left: 2rem;
         padding-right: 2rem;
     }
+    .mini-content {
+        display: grid;
+        grid-template-areas:
+        "day-of-the-week description ten-day-icon low high";
+        grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+        align-items: center;
+
+    }
+    .description-above {
+        display: block;
+        grid-area: description;
+     }
+     .description-below {
+        display: none;
+     }
   }

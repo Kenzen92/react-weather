@@ -23,7 +23,9 @@ import lowIcon from '../../../assets/images/low_temp.png'
 import highIcon from '../../../assets/images/high_temp.png'
 import sunrise from '../../../assets/images/sunrise.png'
 import sunset from '../../../assets/images/sunset.png'
-
+import windgusts from '../../../assets/images/wind.png'
+import windspeed from '../../../assets/images/wind-turbine.png'
+import compass from '../../../assets/images/compass.png'
 
 const weatherIcons = {
     'partly-cloudy-day': partlyCloudyDayIcon,
@@ -44,14 +46,119 @@ const weatherIcons = {
     'wind': windIcon,
 };
 
+const translations = {
+    clear: "Clear",
+    clearingpm: "Clearing in the afternoon",
+    cloudcover: "Cloud Cover",
+    cloudierpm: "Becoming cloudy in the afternoon",
+    coolingdown: "Cooling down",
+    dew: "Dew Point",
+    dow1: "Monday",
+    dow2: "Tuesday",
+    dow3: "Wednesday",
+    dow4: "Thursday",
+    dow5: "Friday",
+    dow6: "Saturday",
+    dow7: "Sunday",
+    estprecip: "Estimated precipitation",
+    heatindex: "Heat Index",
+    humidity: "Relative Humidity",
+    id: "desc",
+    latlon: "Latitude & Longitude",
+    maxt: "Maximum Temperature",
+    mint: "Minimum Temperature",
+    mostdays: "multiple days",
+    norain: "No rain expected",
+    overcast: "Cloudy skies throughout the day",
+    pop: "Chance Precipitation (%)",
+    precip: "Precipitation",
+    precipcover: "Precipitation Cover",
+    rainallday: "A chance of rain throughout the day",
+    rainam: "Morning rain",
+    rainampm: "Rain in the morning and afternoon",
+    rainchance: "A chance of rain",
+    rainclearinglater: "Rain clearing later",
+    raindays: "A chance of rain",
+    raindefinite: "Rain",
+    rainearlyam: "Early morning rain",
+    rainlatepm: "Late afternoon rain",
+    rainpm: "Afternoon rain",
+    rainsnowallday: "A chance of rain or snow throughout the day",
+    rainsnowam: "Morning rain or snow",
+    rainsnowampm: "Rain or snow in the morning and afternoon",
+    rainsnowchance: "a chance of rain or snow",
+    rainsnowclearinglater: "rain or snow clearing later",
+    rainsnowdefinite: "rain or snow",
+    rainsnowearlyam: "early morning snow or rain",
+    rainsnowlatepm: "late afternoon rain or snow",
+    rainsnowpm: "afternoon rain or snow",
+    sealevelpressure: "Sea Level Pressure",
+    similartemp: "similar temperatures continuing",
+    sky: "Sky cover",
+    snow: "Snow",
+    snowallday: "a chance of snow throughout the day",
+    snowam: "morning snow",
+    snowampm: "snow in the morning and afternoon",
+    snowchance: "a chance of snow",
+    snowclearinglater: "snow clearing later",
+    snowdays: "a chance of snow",
+    snowdefinite: "snow",
+    snowdepth: "Snow Depth",
+    snowearlyam: "early morning snow",
+    snowlatepm: "late afternoon snow",
+    snowpm: "afternoon snow",
+    solarenergy: "Solar Energy",
+    solarradiation: "Solar Radiation",
+    stationdistance: "Mean Station Distance",
+    stationInfo: "Contributing Stations",
+    stormspossible: "storms possible",
+    stormsstrong: "strong storms possible",
+    sunshine: "Sunshine",
+    temp: "Temperature",
+    today: "today",
+    tomorrow: "tomorrow",
+    variablecloud: "Partly cloudy throughout the day",
+    visibility: "Visibility",
+    warmingup: "warming up",
+    wdir: "Wind direction",
+    weatherType: "Weather Type",
+    wgust: "Wind Gust",
+    windchill: "Wind Chill",
+    wspd: "Wind Speed"
+};
+
+function translateWeatherString(input) {
+    const words = input.toLowerCase().slice(0, -1).split(' ');
+    const resultArray = [];
+    
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+        if (translations[word]) {
+            resultArray.push(translations[word]);
+        } else {
+            resultArray.push(word); // Keep the original word if no translation
+        }
+    }
+    const mixedCaps = resultArray.join(' ');
+    const lowerCaps = mixedCaps.toLowerCase();
+    const result = lowerCaps.charAt(0).toUpperCase() + lowerCaps.slice(1);
+    return result;
+}
+
+
+
 
 function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
-    console.log(dayData);
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const directionIndex = Math.round(dayData["winddir"] / 45) % 8;
+    const shorthandDirection = directions[directionIndex];
 
+    const inputString = dayData['description'];
+    const translatedString = translateWeatherString(inputString);
         
     return (
         <motion.div
-            animate={{ height: isOpen ? 1000 : 35 }}
+            animate={{ height: isOpen ? 560 : 50 }}
             onClick={onDayClick}
             className="ten-day-forecast-item"
         >
@@ -60,6 +167,7 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                 <div className="ten-day-icon"><img src={weatherIcons[dayData['icon']]} alt="Weather Icon" /></div>
                 <div className="low"><img className="arrows" src={lowIcon} alt="Low Icon" />{dayData['tempmin']}</div>
                 <div className="high"><img className="arrows" src={highIcon} alt="High Icon" />{dayData['tempmax']}</div>
+                <div className="description-above">{translatedString}</div>
             </div>
             <div className="ten-day-forecast-details">
                 <motion.div
@@ -68,19 +176,19 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                 transition={{ duration: 0.3 }}
                 >
                     <div className="grid-container">
-                        <div className="description">{dayData['description']}</div>
+                    <div className="description-below">{translatedString}</div>
                         <div class="chart-container" >
                             <div className="dayGraph"><DayGraph dayWeather={dayData} /></div>
                         </div>
                         <div className="day-data-below-chart">
                             <div className="sunrise_sunset">
-                                <div className="sunrise"><img src={sunrise}></img>{dayData['sunrise']}</div>
-                                <div className="sunset"><img src={sunset}></img>{dayData['sunset']}</div>
+                                <div className="sunrise tooltip"><img src={sunrise}></img>{dayData['sunrise'].slice(0, -3)}<span class="tooltiptext">Sunrise</span></div>
+                                <div className="sunset tooltip"><img src={sunset}></img>{dayData['sunset'].slice(0, -3)}<span class="tooltiptext">Sunset</span></div>
                             </div>
                             <div className="wind">
-                                <div className="windspeed">Windspeed: {dayData["windspeed"]}</div>
-                                <div className="wind-gusts">Max wind gusts: {dayData["windgust"]}</div>
-                                <div className="wind-direction">Wind direction: {dayData["winddir"]}</div>
+                                <div className="windspeed tooltip"><img src={windspeed}></img>{dayData["windspeed"]} <span class="tooltiptext">Wind speed</span></div>
+                                <div className="wind-gusts tooltip"><img src={windgusts}></img>{dayData["windgust"]}<span class="tooltiptext">Wind gusts</span></div>
+                                <div className="wind-direction tooltip"><img src={compass} style={{ transform: `rotate(${dayData["winddir"]}deg)` }}></img>{shorthandDirection}<span class="tooltiptext">Wind direction</span></div>
                             </div>
                         </div>
                     </div>
