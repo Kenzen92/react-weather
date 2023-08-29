@@ -91,7 +91,6 @@ const WeatherComponent = ({ lat, lon, locationName }) => {
   if (!weatherData) {
     return <div>Loading...</div>;
   }
-  console.log(weatherData);
 
 
   const image = setBackgroundByType([weatherData['currentConditions']['conditions']]);

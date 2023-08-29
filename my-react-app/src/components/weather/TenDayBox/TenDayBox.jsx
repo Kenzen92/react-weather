@@ -17,29 +17,7 @@ import partlyCloudyDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set -
 import partlyCloudyNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-night.png';
 import clearDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-day.png';
 import clearNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-night.png';
-import lowIcon from '../../../assets/images/low_temp.png'
-import highIcon from '../../../assets/images/high_temp.png'
 
-
-const weatherIcons = {
-    'partly-cloudy-day': partlyCloudyDayIcon,
-    'partly-cloudy-night': partlyCloudyNightIcon,
-    'clear-day': clearDayIcon,
-    'clear-night': clearNightIcon,
-    'cloudy': cloudyIcon,
-    'fog': fogIcon,
-    'rain': rainIcon,
-    'showers-day': showersDayIcon,
-    'showers-night': showersNightIcon,
-    'snow': snowIcon,
-    'snow-showers-day': snowShowersDayIcon,
-    'snow-showers-night': snowShowersNightIcon,
-    'thunder-rain': thunderRainIcon,
-    'thunder-showers-day': thunderShowersDayIcon,
-    'thunder-showers-night': thunderShowersNightIcon,
-    'wind': windIcon,
-    // ... add other conditions here ...
-};
   
 
 function TenDayBox({ weatherData }) {  

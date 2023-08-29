@@ -177,7 +177,7 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                 >
                     <div className="grid-container">
                     <div className="description-below">{translatedString}</div>
-                        <div class="chart-container" >
+                        <div className="chart-container" >
                             <div className="dayGraph"><DayGraph dayWeather={dayData} /></div>
                         </div>
                         <div className="day-data-below-chart">
