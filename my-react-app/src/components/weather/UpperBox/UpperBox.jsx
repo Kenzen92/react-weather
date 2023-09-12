@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import "./UpperBox.css"
 import lowIcon from '../../../assets/images/low_temp.png'
 import highIcon from '../../../assets/images/high_temp.png'

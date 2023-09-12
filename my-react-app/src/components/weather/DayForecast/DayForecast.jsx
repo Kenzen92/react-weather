@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion'
 import "./DayForecast.css"
 import DayGraph from '../DayCharts/DayCharts';
@@ -158,7 +158,7 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
         
     return (
         <motion.div
-            animate={{ height: isOpen ? 560 : 50 }}
+            animate={{ height: isOpen ? 560 : 45 }}
             onClick={onDayClick}
             className="ten-day-forecast-item"
         >
@@ -182,17 +182,16 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
                         </div>
                         <div className="day-data-below-chart">
                             <div className="sunrise_sunset">
-                                <div className="sunrise tooltip"><img src={sunrise}></img>{dayData['sunrise'].slice(0, -3)}<span class="tooltiptext">Sunrise</span></div>
-                                <div className="sunset tooltip"><img src={sunset}></img>{dayData['sunset'].slice(0, -3)}<span class="tooltiptext">Sunset</span></div>
+                                <div className="sunrise tooltip"><img src={sunrise}></img>{dayData['sunrise'].slice(0, -3)}<span className="tooltiptext">Sunrise</span></div>
+                                <div className="sunset tooltip"><img src={sunset}></img>{dayData['sunset'].slice(0, -3)}<span className="tooltiptext">Sunset</span></div>
                             </div>
                             <div className="wind">
-                                <div className="windspeed tooltip"><img src={windspeed}></img>{dayData["windspeed"]} <span class="tooltiptext">Wind speed</span></div>
-                                <div className="wind-gusts tooltip"><img src={windgusts}></img>{dayData["windgust"]}<span class="tooltiptext">Wind gusts</span></div>
-                                <div className="wind-direction tooltip"><img src={compass} style={{ transform: `rotate(${dayData["winddir"]}deg)` }}></img>{shorthandDirection}<span class="tooltiptext">Wind direction</span></div>
+                                <div className="windspeed tooltip"><img src={windspeed}></img>{dayData["windspeed"]} <span className="tooltiptext">Wind speed</span></div>
+                                <div className="wind-gusts tooltip"><img src={windgusts}></img>{dayData["windgust"]}<span className="tooltiptext">Wind gusts</span></div>
+                                <div className="wind-direction tooltip"><img src={compass} style={{ transform: `rotate(${dayData["winddir"]}deg)` }}></img>{shorthandDirection}<span className="tooltiptext">Wind direction</span></div>
                             </div>
                         </div>
                     </div>
-                    
                 </motion.div>
                 
             </div>

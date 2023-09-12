@@ -52,22 +52,28 @@ img {
 }
 
 .todayBox{
-    background-color: rgba(47, 117, 187, .7);
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    background-color: rgba(47, 117, 187, .7);
     padding-top: 1rem;
     padding-bottom: 0.4rem;
     padding-left: 1.1rem;
     padding-right: 1.1rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    align-items: center;
+}
+
+.todayBoxInner {
+    display: flex;
+    justify-content: space-between;
     border-bottom-left-radius: 20px 20px;
     border-bottom-right-radius: 20px 20px;
     overflow-x: scroll;
 }
 
 
-.todayBox::-webkit-scrollbar {
+.todayBoxInner::-webkit-scrollbar {
     display: none;
 }
 

@@ -53,9 +53,6 @@ function App() {
             }
           }
 
-          console.log('District Name:', districtName);
-          console.log('City Name:', cityName);
-          console.log('Country name:', countryName);
           const formattedAddress = districtName + " " + cityName + ", " + countryName;
           setLocationName(formattedAddress);
         }
@@ -82,9 +79,7 @@ function App() {
 
       if (data.results.length > 0) {
         const formattedAddress = data.results[0].formatted_address;
-        console.log(formattedAddress);
         setLocationName(formattedAddress);
-        console.log(locationName);
         setShowManualForm(false);
         setLat(data.results[0].geometry.location.lat);
         setLon(data.results[0].geometry.location.lng);

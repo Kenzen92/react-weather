@@ -89,7 +89,7 @@ const WeatherComponent = ({ lat, lon, locationName }) => {
   }, [lat, lon]);
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return <div className="loadingMessage">Loading...</div>;
   }
 
 
@@ -98,6 +98,7 @@ const WeatherComponent = ({ lat, lon, locationName }) => {
     backgroundImage: `url(${image})`, // Replace with your image path
     backgroundSize: 'cover',
     backgroundPosition: 'top',
+    backgroundAttachment: 'fixed'
   };
 
   return (

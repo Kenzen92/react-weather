@@ -16,7 +16,8 @@ import partlyCloudyDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set -
 import partlyCloudyNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/partly-cloudy-night.png';
 import clearDayIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-day.png';
 import clearNightIcon from '../../../assets/WeatherIcons-main/PNG/2nd Set - Color/clear-night.png';
-
+import leftArrow from '../../../assets/images/leftArrow.png'
+import rightArrow from '../../../assets/images/rightArrow.png'
 
 const weatherIcons = {
     'partly-cloudy-day': partlyCloudyDayIcon,
@@ -44,7 +45,6 @@ function TodayBox({ weatherData }) {
     const nextSixHours = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const entry = weatherData['days'];
     let oneDayOfHours = entry[0]['hours'];
-    console.log("one day of hours", oneDayOfHours);
     let firstFutureTime = -1;
 
     // Iterate through the API response to find the first hour in the future
@@ -58,13 +58,9 @@ function TodayBox({ weatherData }) {
     if (firstFutureTime === -1) {
         oneDayOfHours = entry[1]['hours'];
         firstFutureTime = 0;
-        console.log("Current time is past 11pm");
     }
 
-    let currentFutureHour = firstFutureTime;
-    console.log("next hour is", currentFutureHour);
-    console.log(oneDayOfHours[currentFutureHour]);
-    
+    let currentFutureHour = firstFutureTime;    
     // iterate through the 6 time slots
     for (let i=1; i< nextSixHours.length; i++) {
         
@@ -81,7 +77,6 @@ function TodayBox({ weatherData }) {
             const time = oneDayOfHours[currentFutureHour]['datetime'].slice(0, -3);
             const hours = time.slice(0, 2);
             let timeString;
-            console.log(hours);
             let formattedTime
             if (parseInt(hours) > 12) {
                 formattedTime = parseInt(hours) - 12;
@@ -101,7 +96,6 @@ function TodayBox({ weatherData }) {
     }
 
     const hourBoxes = [];
-
     for (let i = 1; i <= 23; i++) {
         hourBoxes.push(
             <div className="one-hour-box" key={i}>
@@ -215,6 +209,18 @@ function TodayBox({ weatherData }) {
         return result;
     }
 
+    function scrollLeft() {
+        const todayBox = document.getElementById("scrollableBox");
+        const scrollIncrement = todayBox.scrollWidth / 5;
+        todayBox.scrollBy({ left: -scrollIncrement, behavior: 'smooth' });
+    }
+
+    function scrollRight() {
+        const todayBox = document.getElementById("scrollableBox");
+        const scrollIncrement = todayBox.scrollWidth / 5;
+        todayBox.scrollBy({ left: scrollIncrement, behavior: 'smooth' });
+    }
+
     const inputString = weatherData['description'];
     const translatedString = translateWeatherString(inputString);
 
@@ -222,17 +228,25 @@ function TodayBox({ weatherData }) {
     <div className="todayBoxBackground">
                 <div id="todayDescription" className="todayDescription">{translatedString}</div>
                 <div className='todayBox'>
-                    <div className="one-hour-box">
-                        <div id="currentTime" className="todayItem">Now</div>
-                        <div className="todayItem">
-                            <img id="currentIcon" src={weatherIcons[weatherData.currentConditions['icon']]}></img>
-                        </div>
-                        <div id="currentTempSmall" className="todayItem">{weatherData.currentConditions.temp}°</div>
-                        <div className="todayItem">{weatherData.currentConditions.precip}mm</div>
+                    <div className="scrollButton">
+                        <img className="scroll-arrow" src={leftArrow} onClick={scrollLeft}></img>
                     </div>
-    
-                    {hourBoxes}
-                    
+                    <div className='todayBoxInner' id="scrollableBox">
+                        
+                        <div className="one-hour-box">
+                            <div id="currentTime" className="todayItem">Now</div>
+                            <div className="todayItem">
+                                <img id="currentIcon" src={weatherIcons[weatherData.currentConditions['icon']]}></img>
+                            </div>
+                            <div id="currentTempSmall" className="todayItem">{weatherData.currentConditions.temp}°</div>
+                            <div className="todayItem">{weatherData.currentConditions.precip}mm</div>
+                        </div>
+                        
+                        {hourBoxes}
+                    </div>
+                    <div className="scrollButton">
+                        <img className="scroll-arrow" src={rightArrow} onClick={scrollRight}></img>
+                    </div>
                 </div>
             </div>
   );

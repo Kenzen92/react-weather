@@ -38,24 +38,21 @@ function DayGraph({ dayWeather, windowWidth }) {
                 label: 'Humidity',
                 data: humidityData,
                 borderColor: 'grey',
-                backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                fill: true,
-                tension: 0.3
+                backgroundColor: 'grey',
+                tension: 0.5,
             },
             {
                 label: 'Temperature',
                 data: tempData,
                 borderColor: 'red',
-                backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                fill: true,
+                backgroundColor: 'red',
                 tension: 0.3
             },
             {
                 label: 'Precipitation Chance',
                 data: precipitationData,
                 borderColor: 'blue',
-                backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                fill: true,
+                backgroundColor: 'blue',
                 tension: 0.3
 
             },
@@ -63,8 +60,7 @@ function DayGraph({ dayWeather, windowWidth }) {
                 label: 'UV Index',
                 data: uvIndexData,
                 borderColor: 'yellow',
-                backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                fill: true,
+                backgroundColor: 'yellow',
                 tension: 0.3
             }
         ]
@@ -75,11 +71,12 @@ function DayGraph({ dayWeather, windowWidth }) {
         responsive: true,
         maintainAspectRatio: false,
         aspectRatio: 0.5,
+        pointRadius: 2,
         plugins: {
             legend: {
                 display: true,
                 labels: {
-                    color: 'rgba(256, 256, 256, 0.8)' // Set the desired color for the legend text
+                    color: 'rgba(256, 256, 256, 1)' // Set the desired color for the legend text
                 }
             }
         },
@@ -91,7 +88,7 @@ function DayGraph({ dayWeather, windowWidth }) {
                     color: 'rgba(256, 256, 256, 0.8)'
                 },
                 grid: {
-                    color: 'rgba(256, 256, 256, 0.2)'
+                    color: 'rgba(256, 256, 256, 0.1)'
                 },
                 ticks: {
                     color: 'rgba(256, 256, 256, 0.6)' // Customize the color of the y-axis ticks
