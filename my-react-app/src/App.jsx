@@ -9,6 +9,14 @@ function App() {
   const [geolocationFetched, setGeolocationFetched] = useState(false);
   const [showManualForm, setShowManualForm] = useState(false);
 
+  // Geolocation API only being called after the manual form is submitted. Need to trigger the 
+  // API on page load automatically, then fall back to the manual form only if it fails
+
+// I've reset the position of the request. Page should now automatically call API, and only if it fails should the code
+// continue to attempt to show manual form.
+
+// To test need to 1. try with location enabled, 2. try with location disabled
+
   useEffect(() => {
     const fetchGeolocation = async () => {
       try {
@@ -65,18 +73,18 @@ function App() {
   const handleManualSubmit = async (event) => {
     event.preventDefault();
     const manualLocation = event.target.location.value;
-
     const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(manualLocation)}&key=${geocodeApiKey}`;
 
     try {
       const response = await fetch(geocodeUrl);
       const data = await response.json();
-      console.log(data);
+
       if (data.results.length > 0) {
         const formattedAddress = data.results[0].formatted_address;
         console.log(formattedAddress);
         setLocationName(formattedAddress);
+        console.log(locationName);
         setShowManualForm(false);
         setLat(data.results[0].geometry.location.lat);
         setLon(data.results[0].geometry.location.lng);
