@@ -16,8 +16,42 @@ function App() {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
 
-        setLat(position.coords.latitude);
-        setLon(position.coords.longitude);
+        const { latitude, longitude } = position.coords;
+    
+        setLat(latitude);
+        setLon(longitude);
+        // Reverse geocode the coordinates to get the formatted address
+        const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
+        const reverseGeocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geocodeApiKey}`;
+        
+        const reverseGeocodeResponse = await fetch(reverseGeocodeUrl);
+        const reverseGeocodeData = await reverseGeocodeResponse.json();
+        
+        if (reverseGeocodeData.results.length > 0) {
+          const components = reverseGeocodeData.results[0].address_components;
+          let districtName = '';
+          let cityName = '';
+          let countryName = '';
+
+          // Loop through the components and find the district and city names
+          for (const component of components) {
+            if (component.types.includes('country')) {
+              countryName = component.long_name;
+            }
+            if (component.types.includes('administrative_area_level_3')) {
+              districtName = component.long_name;
+            } else if (component.types.includes('locality')) {
+              cityName = component.long_name;
+            }
+          }
+
+          console.log('District Name:', districtName);
+          console.log('City Name:', cityName);
+          console.log('Country name:', countryName);
+          const formattedAddress = districtName + " " + cityName + ", " + countryName;
+          setLocationName(formattedAddress);
+        }
+
         setGeolocationFetched(true);
       } catch (error) {
         console.error('Error fetching geolocation:', error);
@@ -38,9 +72,10 @@ function App() {
     try {
       const response = await fetch(geocodeUrl);
       const data = await response.json();
-
+      console.log(data);
       if (data.results.length > 0) {
         const formattedAddress = data.results[0].formatted_address;
+        console.log(formattedAddress);
         setLocationName(formattedAddress);
         setShowManualForm(false);
         setLat(data.results[0].geometry.location.lat);
