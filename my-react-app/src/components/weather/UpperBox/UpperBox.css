@@ -29,9 +29,19 @@ img {
     border-top-right-radius: 20px 20px;
     padding: 0.5rem;
 }
+.searchBar {
+    float: right;
+}
 
-.newBox {
-    padding-top: 20%;
+.searchButton {
+    padding: 0.1rem;
+}
+.searchButtonImage{
+    width: 1rem;
+}
+
+.placeName {
+    padding-top: 15%;
 }
 .newBox .placeName {
     font-size: 2rem;

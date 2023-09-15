@@ -84,6 +84,7 @@ function App() {
   const handleManualSubmit = async (event) => {
     event.preventDefault();
     const manualLocation = event.target.location.value;
+    console.log(manualLocation);
     const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
       manualLocation
@@ -118,7 +119,7 @@ function App() {
   return (
     <>
       {geolocationFetched ? (
-        <Weather lat={lat} lon={lon} locationName={locationName} />
+        <Weather lat={lat} lon={lon} locationName={locationName} handleManualSubmit={handleManualSubmit} />
       ) : showManualForm ? (
         <form onSubmit={handleManualSubmit}>
           <label htmlFor="location">Type your city name</label>

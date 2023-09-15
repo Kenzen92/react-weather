@@ -10,7 +10,7 @@ import foggyImage from '../../assets/images/fog.jpg';
 import sleetImage from '../../assets/images/sleet.jpg';
 import stormyImage from '../../assets/images/storm.jpg';
 
-const WeatherComponent = ({ lat, lon, locationName }) => {
+const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   const weatherTypeToImageGroup = {
@@ -105,7 +105,7 @@ const WeatherComponent = ({ lat, lon, locationName }) => {
     <>
     <div className="box-container" style={boxContainerStyle}>
       <div className="page-content-container">
-          <UpperBox weatherData={weatherData} locationName={locationName}/>
+          <UpperBox weatherData={weatherData} locationName={locationName} handleManualSubmit={handleManualSubmit}/>
           <TodayBox  weatherData={weatherData} />
           <TenDayBox weatherData={weatherData} />
         </div>

@@ -2,8 +2,9 @@ import React from 'react';
 import "./UpperBox.css"
 import lowIcon from '../../../assets/images/low_temp.png'
 import highIcon from '../../../assets/images/high_temp.png'
+import searchIcon from '../../../assets/images/search_icon.png'
 
-function UpperBox({ weatherData, locationName }) {
+function UpperBox({ weatherData, locationName, handleManualSubmit }) {
 
   const weatherDescriptions = {
     type_1: "Blowing or drifting snow",
@@ -69,7 +70,17 @@ function translateWeatherString(input) {
   
   return (
     <div className='newBox'>
-
+          <div className="searchBar">
+          <div className='newLocationSearch'>
+            <form onSubmit={handleManualSubmit}>
+              <label htmlFor="location">Type your city name</label>
+              <input type="text" name="location" id="location" required />
+              <button className="searchButton" type="submit">
+                <img className="searchButtonImage" src={searchIcon} />
+              </button>
+            </form>
+          </div>
+          </div>
           <div className='placeName'>{locationName}</div>
           <div className='temp'>{weatherData.currentConditions.temp}°</div>
           <div className='description'>{translateWeatherString(weatherData.currentConditions.conditions)}</div>
