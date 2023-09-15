@@ -67,14 +67,23 @@ function translateWeatherString(input) {
 
   return resultArray.join(' ');
 }
+
+function toggleSearch() {
+  const searchBar = document.getElementById('location-form');
+  searchBar.style.display = 'flex';
+  const searchToggle = document.getElementById('toggle-search');
+  searchToggle.style.display = 'none';
+}
   
   return (
     <div className='newBox'>
           <div className="searchBar">
           <div className='newLocationSearch'>
-            <form onSubmit={handleManualSubmit}>
-              <label htmlFor="location">Type your city name</label>
-              <input type="text" name="location" id="location" required />
+            <button className="toggle-search" id="toggle-search" type="button" onClick={toggleSearch} >
+                <img className="searchButtonImage" src={searchIcon} />
+            </button>
+            <form onSubmit={handleManualSubmit} id="location-form" className="location-form">
+              <input className="searchToggle" type="text" placeholder="Type your city name" name="location" id="location" required />
               <button className="searchButton" type="submit">
                 <img className="searchButtonImage" src={searchIcon} />
               </button>

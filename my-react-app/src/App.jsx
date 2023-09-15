@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Weather from './components/weather/weather';
 import './App.css';
+import searchIcon from './assets/images/search_icon.png'
 
 function App() {
   const [lat, setLat] = useState(null);
@@ -121,11 +122,18 @@ function App() {
       {geolocationFetched ? (
         <Weather lat={lat} lon={lon} locationName={locationName} handleManualSubmit={handleManualSubmit} />
       ) : showManualForm ? (
-        <form onSubmit={handleManualSubmit}>
-          <label htmlFor="location">Type your city name</label>
-          <input type="text" name="location" id="location" required />
-          <button type="submit">Fetch Weather</button>
-        </form>
+         <div className="first-search-bar">
+          <h2>Sorry! Unable to get location</h2>
+          <h3>Please search</h3>
+          <div className='LocationSearch'>
+            <form onSubmit={handleManualSubmit} id="location-form" className="first-location-form">
+              <input className="first-search-toggle" type="text" placeholder="Type your city name" name="location" id="first-location" required />
+              <button className="searchButton" type="submit">
+                <img className="searchButtonImage" src={searchIcon} />
+              </button>
+            </form>
+          </div>
+          </div>
       ) : (
         <div>Loading geolocation...</div>
       )}

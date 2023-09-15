@@ -32,12 +32,25 @@ img {
 .searchBar {
     float: right;
 }
-
-.searchButton {
+.location-form {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+.searchButton, .toggle-search {
     padding: 0.1rem;
+}
+.toggle-search {
+    margin-top: 1rem;
 }
 .searchButtonImage{
     width: 1rem;
+}
+.searchToggle {
+    margin-right: 1rem;
+    font-size: small;
+    height: 2rem;
 }
 
 .placeName {
@@ -72,6 +85,8 @@ img {
     margin-left: 1rem;
     margin-right: 1rem;
     align-items: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .todayBoxInner {

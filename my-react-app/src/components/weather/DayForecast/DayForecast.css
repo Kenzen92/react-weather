@@ -1,16 +1,4 @@
-.grid-container {
-    /* display: grid;
-    font-size: smaller;
-    grid-template-areas: 
-    "humidity description"
-    "humidity feels-like"
-    "humidity uvInfo"
-    "humidity sunrise_sunset"
-    "humidity dayGraph"; */
-    /* gap: 20px;
-    align-items: center;
-    justify-content: space-around; */
-  }
+
   .dayGraph{
     grid-area: dayGraph;
   }
@@ -40,7 +28,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
 
 }
@@ -52,13 +40,13 @@
 } 
 .sunrise {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 0.5rem;
     align-items: center;
 }
 .sunset {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 0.5rem;
     align-items: center;
 }
@@ -70,7 +58,7 @@
 }
 .windspeed, .wind-gusts, .wind-direction {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 0.5rem;
     align-items: center;
 }

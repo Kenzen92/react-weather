@@ -83,15 +83,13 @@ function DayGraph({ dayWeather, windowWidth }) {
         scales: {
             x: {
                 title: {
-                    display: true,
-                    text: 'Time of Day',
-                    color: 'rgba(256, 256, 256, 0.8)'
+                    display: false,
                 },
                 grid: {
                     color: 'rgba(256, 256, 256, 0.1)'
                 },
                 ticks: {
-                    color: 'rgba(256, 256, 256, 0.6)' // Customize the color of the y-axis ticks
+                    color: 'rgba(256, 256, 256, 0.6)' // Customize the color of the x-axis ticks
                 }
             },
             y: {

@@ -13,9 +13,21 @@
 }
 
 
+.first-search-bar {
+  padding-top: 10%;
+}
 
-
-
+.first-location-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.first-search-toggle {
+  margin-right: 1rem;
+  font-size: small;
+  height: 2rem;
+}
 
 
 @media only screen and (max-width: 400px) {
