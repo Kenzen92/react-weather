@@ -25,7 +25,7 @@ ChartJS.register(
 
 function DayGraph({ dayWeather, windowWidth }) {
     const dayWeatherHours = dayWeather['hours'];
-    const hourLabels = dayWeatherHours.map(hour => hour['datetime'].slice(0, -3));
+    const hourLabels = dayWeatherHours.map(hour => hour['datetime'].slice(0, -6));
     const humidityData = dayWeatherHours.map(hour => hour['humidity']);
     const tempData = dayWeatherHours.map(hour => hour['temp']);
     const precipitationData = dayWeatherHours.map(hour => hour['precipprob']);
@@ -89,7 +89,9 @@ function DayGraph({ dayWeather, windowWidth }) {
                     color: 'rgba(256, 256, 256, 0.1)'
                 },
                 ticks: {
-                    color: 'rgba(256, 256, 256, 0.6)' // Customize the color of the x-axis ticks
+                    color: 'rgba(256, 256, 256, 0.6)', // Customize the color of the x-axis ticks
+                    maxRotation: 0,
+                    minRotation: 0
                 }
             },
             y: {

@@ -30,7 +30,16 @@ img {
     padding: 0.5rem;
 }
 .searchBar {
-    float: right;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1rem;
+    align-items: center;
+}
+.newLocationSearch {
+    margin-right: 1rem;
+}
+.home-button {
+    margin-top: 1rem;
 }
 .location-form {
     display: none;
@@ -50,7 +59,7 @@ img {
 .searchToggle {
     margin-right: 1rem;
     font-size: small;
-    height: 2rem;
+    height: 1.5rem;
 }
 
 .placeName {
@@ -96,7 +105,6 @@ img {
     border-bottom-right-radius: 20px 20px;
     overflow-x: scroll;
 }
-
 
 .todayBoxInner::-webkit-scrollbar {
     display: none;

@@ -78,6 +78,7 @@ function toggleSearch() {
   return (
     <div className='newBox'>
           <div className="searchBar">
+            <a href="https://kennysolutions.com/"><button className="home-button">Back</button></a>
           <div className='newLocationSearch'>
             <button className="toggle-search" id="toggle-search" type="button" onClick={toggleSearch} >
                 <img className="searchButtonImage" src={searchIcon} />

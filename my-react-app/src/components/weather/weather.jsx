@@ -14,8 +14,59 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   const weatherTypeToImageGroup = {
-    // ... (your existing mapping)
-  };
+    // Precipitation
+    type_2: rainyImage, // Drizzle
+    type_3: rainyImage, // Heavy Drizzle
+    type_4: rainyImage, // Light Drizzle
+    type_5: rainyImage, // Heavy Drizzle/Rain
+    type_6: rainyImage, // Light Drizzle/Rain
+    type_21: rainyImage, // Rain
+    type_22: rainyImage, // Heavy Rain And Snow
+    type_23: rainyImage, // Light Rain And Snow
+    type_24: rainyImage, // Rain Showers
+    type_25: rainyImage, // Heavy Rain
+
+    // Snow
+    type_31: snowyImage, // Snow
+    type_32: snowyImage, // Snow And Rain Showers
+    type_33: snowyImage, // Snow Showers
+    type_34: snowyImage, // Heavy Snow
+    type_35: snowyImage, // Light Snow
+
+    // Other
+    type_7: 'dust', // Dust storm
+    type_8: foggyImage, // Fog
+    type_12: foggyImage, // Freezing Fog
+    type_19: foggyImage, // Mist
+    type_30: 'smoke', // Smoke Or Haze
+    type_37: stormyImage, // Thunderstorm
+    type_38: stormyImage, // Thunderstorm Without Precipitation
+    type_14: sleetImage, // Light Freezing Rain
+    type_10: sleetImage, // Heavy Freezing Drizzle/Freezing Rain
+    type_11: sleetImage, // Light Freezing Drizzle/Freezing Rain
+    type_9: sleetImage, // Freezing Drizzle/Freezing Rain
+    type_13: sleetImage, // Heavy Freezing Rain
+
+    // Clear sky
+    type_43: sunnyImage, // Clear
+
+    // Clouds
+    type_27: cloudyImage, // Sky Coverage Decreasing
+    type_28: cloudyImage, // Sky Coverage Increasing
+    type_29: cloudyImage, // Sky Unchanged
+    type_41: cloudyImage, // Overcast
+    type_42: cloudyImage, // Partially cloudy
+
+    // Special conditions
+    type_15: 'tornado', // Funnel Cloud/Tornado
+    type_16: 'hail', // Hail Showers
+    type_40: 'hail', // Hail
+    type_36: 'squalls', // Squalls
+    type_18: stormyImage, // Lightning Without Thunder
+    type_39: 'diamond_dust', // Diamond Dust
+    type_17: 'ice', // Ice
+    type_20: 'rain_nearby', // Precipitation In Vicinity
+    };
 
   // Function to set the background image based on the type number's category
   function setBackgroundByType(typeNumber) {
@@ -42,6 +93,7 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit }) => {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           // Store data in localStorage for future use
           localStorage.setItem(cacheKey, JSON.stringify(data));
           setWeatherData(data);

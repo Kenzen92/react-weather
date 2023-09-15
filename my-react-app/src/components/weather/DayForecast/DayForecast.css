@@ -143,6 +143,8 @@
 }
 .ten-day-icon {
     margin-block: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .chart-container {
@@ -183,7 +185,7 @@
         display: grid;
         grid-template-areas:
         "day-of-the-week description ten-day-icon low high";
-        grid-template-columns: 1fr 2.5fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 5fr 1fr 1fr 1fr;
         align-items: center;
 
     }

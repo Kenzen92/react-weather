@@ -158,7 +158,7 @@ function DayForecast({ dayData, dayName, isOpen, onDayClick, hidden }) {
         
     return (
         <motion.div
-            animate={{ height: isOpen ? 560 : 45 }}
+            animate={{ height: isOpen ? 540 : 43 }}
             onClick={onDayClick}
             className="ten-day-forecast-item"
         >
