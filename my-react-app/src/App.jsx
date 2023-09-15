@@ -9,61 +9,75 @@ function App() {
   const [geolocationFetched, setGeolocationFetched] = useState(false);
   const [showManualForm, setShowManualForm] = useState(false);
 
-  // Geolocation API only being called after the manual form is submitted. Need to trigger the 
-  // API on page load automatically, then fall back to the manual form only if it fails
+  // Function to fetch geolocation
+  const fetchGeolocation = async () => {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
 
-// I've reset the position of the request. Page should now automatically call API, and only if it fails should the code
-// continue to attempt to show manual form.
+      const { latitude, longitude } = position.coords;
 
-// To test need to 1. try with location enabled, 2. try with location disabled
+      setLat(latitude);
+      setLon(longitude);
+      // Reverse geocode the coordinates to get the formatted address
+      const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
+      const reverseGeocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geocodeApiKey}`;
 
-  useEffect(() => {
-    const fetchGeolocation = async () => {
-      try {
-        const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        });
+      const reverseGeocodeResponse = await fetch(reverseGeocodeUrl);
+      const reverseGeocodeData = await reverseGeocodeResponse.json();
 
-        const { latitude, longitude } = position.coords;
-    
-        setLat(latitude);
-        setLon(longitude);
-        // Reverse geocode the coordinates to get the formatted address
-        const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
-        const reverseGeocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geocodeApiKey}`;
-        
-        const reverseGeocodeResponse = await fetch(reverseGeocodeUrl);
-        const reverseGeocodeData = await reverseGeocodeResponse.json();
-        
-        if (reverseGeocodeData.results.length > 0) {
-          const components = reverseGeocodeData.results[0].address_components;
-          let districtName = '';
-          let cityName = '';
-          let countryName = '';
+      if (reverseGeocodeData.results.length > 0) {
+        const components = reverseGeocodeData.results[0].address_components;
+        let districtName = '';
+        let cityName = '';
+        let countryName = '';
 
-          // Loop through the components and find the district and city names
-          for (const component of components) {
-            if (component.types.includes('country')) {
-              countryName = component.long_name;
-            }
-            if (component.types.includes('administrative_area_level_3')) {
-              districtName = component.long_name;
-            } else if (component.types.includes('locality')) {
-              cityName = component.long_name;
-            }
+        // Loop through the components and find the district and city names
+        for (const component of components) {
+          if (component.types.includes('country')) {
+            countryName = component.long_name;
           }
-
-          const formattedAddress = districtName + " " + cityName + ", " + countryName;
-          setLocationName(formattedAddress);
+          if (component.types.includes('administrative_area_level_3')) {
+            districtName = component.long_name;
+          } else if (component.types.includes('locality')) {
+            cityName = component.long_name;
+          }
         }
 
-        setGeolocationFetched(true);
-      } catch (error) {
-        console.error('Error fetching geolocation:', error);
-        setShowManualForm(true);
+        const formattedAddress = districtName + ' ' + cityName + ', ' + countryName;
+        setLocationName(formattedAddress);
       }
-    };
 
+      setGeolocationFetched(true);
+    } catch (error) {
+      console.error('Error fetching geolocation:', error);
+      setShowManualForm(true);
+    }
+  };
+
+  // Use localStorage to cache API responses
+  const cacheKey = 'cachedWeatherData';
+  const cachedData = localStorage.getItem(cacheKey);
+
+  useEffect(() => {
+    if (cachedData) {
+      const { timestamp, data } = JSON.parse(cachedData);
+      const currentTime = new Date().getTime();
+      const timeDiff = (currentTime - timestamp) / (1000 * 60); // Calculate time difference in minutes
+
+      // Check if the cached data is less than 5 minutes old
+      if (timeDiff <= 5) {
+        setLat(data.lat);
+        setLon(data.lon);
+        setLocationName(data.locationName);
+        setGeolocationFetched(true);
+        console.log("using cached data")
+        return;
+      }
+    }
+
+    // If cache is expired or doesn't exist, fetch geolocation
     fetchGeolocation();
   }, []);
 
@@ -71,7 +85,9 @@ function App() {
     event.preventDefault();
     const manualLocation = event.target.location.value;
     const geocodeApiKey = import.meta.env.VITE_GEOLOCATION_API_KEY;
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(manualLocation)}&key=${geocodeApiKey}`;
+    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      manualLocation
+    )}&key=${geocodeApiKey}`;
 
     try {
       const response = await fetch(geocodeUrl);
@@ -84,6 +100,15 @@ function App() {
         setLat(data.results[0].geometry.location.lat);
         setLon(data.results[0].geometry.location.lng);
         setGeolocationFetched(true);
+
+        // Cache the API response
+        const currentTime = new Date().getTime();
+        const cachedData = {
+          lat: data.results[0].geometry.location.lat,
+          lon: data.results[0].geometry.location.lng,
+          locationName: formattedAddress,
+        };
+        localStorage.setItem(cacheKey, JSON.stringify({ timestamp: currentTime, data: cachedData }));
       }
     } catch (error) {
       console.error('Error fetching location data:', error);
@@ -93,11 +118,7 @@ function App() {
   return (
     <>
       {geolocationFetched ? (
-        <Weather
-          lat={lat}
-          lon={lon}
-          locationName={locationName}
-        />
+        <Weather lat={lat} lon={lon} locationName={locationName} />
       ) : showManualForm ? (
         <form onSubmit={handleManualSubmit}>
           <label htmlFor="location">Type your city name</label>
