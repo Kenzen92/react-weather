@@ -37,6 +37,26 @@ img {
 }
 .newLocationSearch {
     margin-right: 1rem;
+    display: flex;
+    align-items: flex-end;
+}
+.geolocation-form {
+    display: none;
+  }
+  .tooltip {
+    position: relative;
+  }
+.tooltiptext {
+    display: none;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 .home-button {
     margin-top: 1rem;

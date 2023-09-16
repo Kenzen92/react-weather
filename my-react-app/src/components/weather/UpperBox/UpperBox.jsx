@@ -3,8 +3,9 @@ import "./UpperBox.css"
 import lowIcon from '../../../assets/images/low_temp.png'
 import highIcon from '../../../assets/images/high_temp.png'
 import searchIcon from '../../../assets/images/search_icon.png'
+import geolocationIcon from '../../../assets/images/geolocation.png'
 
-function UpperBox({ weatherData, locationName, handleManualSubmit }) {
+function UpperBox({ weatherData, locationName, handleManualSubmit, handleGeolocationRequest }) {
 
   const weatherDescriptions = {
     type_1: "Blowing or drifting snow",
@@ -73,31 +74,39 @@ function toggleSearch() {
   searchBar.style.display = 'flex';
   const searchToggle = document.getElementById('toggle-search');
   searchToggle.style.display = 'none';
+  const geolocationForm = document.getElementById('geolocation-form');
+  geolocationForm.style.display = 'block';
 }
   
   return (
     <div className='newBox'>
-          <div className="searchBar">
-            <a href="https://kennysolutions.com/"><button className="home-button">Back</button></a>
-          <div className='newLocationSearch'>
-            <button className="toggle-search" id="toggle-search" type="button" onClick={toggleSearch} >
-                <img className="searchButtonImage" src={searchIcon} />
+      <div className="searchBar">
+        <a href="https://kennysolutions.com/"><button className="home-button">Back</button></a>
+        <div className='newLocationSearch'>
+          <button className="toggle-search" id="toggle-search" type="button" onClick={toggleSearch} >
+            <img className="searchButtonImage" src={searchIcon} />
+          </button>
+          <form onSubmit={handleGeolocationRequest} id="geolocation-form" className="geolocation-form">
+            <button className="searchButton" type="submit">
+                <img className="searchButtonImage tooltip" src={geolocationIcon} />
+                <span id="tootltiptext" className="tooltiptext">Geolocation unavailable</span>
             </button>
-            <form onSubmit={handleManualSubmit} id="location-form" className="location-form">
-              <input className="searchToggle" type="text" placeholder="Type your city name" name="location" id="location" required />
-              <button className="searchButton" type="submit">
-                <img className="searchButtonImage" src={searchIcon} />
-              </button>
-            </form>
-          </div>
-          </div>
-          <div className='placeName'>{locationName}</div>
-          <div className='temp'>{weatherData.currentConditions.temp}°</div>
-          <div className='description'>{translateWeatherString(weatherData.currentConditions.conditions)}</div>
-          <div className='miniTemps'>
-            <div className='low miniTemp'><img className="arrows" src={lowIcon}/> {weatherData.days[0].tempmin}°</div>
-            <div className='high miniTemp'><img className="arrows" src={highIcon}/> {weatherData.days[0].tempmax}°</div>
-          </div>
+          </form>
+          <form onSubmit={handleManualSubmit} id="location-form" className="location-form">
+            <input className="searchToggle" type="text" placeholder="Type your city name" name="location" id="location" required />
+            <button className="searchButton" type="submit">
+              <img className="searchButtonImage" src={searchIcon} />
+            </button>
+          </form>
+        </div>
+      </div>
+      <div className='temp'>{weatherData.currentConditions.temp}°</div>
+      <div className='placeName'>{locationName}</div>
+      <div className='description'>{translateWeatherString(weatherData.currentConditions.conditions)}</div>
+      <div className='miniTemps'>
+        <div className='low miniTemp'><img className="arrows" src={lowIcon}/> {weatherData.days[0].tempmin}°</div>
+        <div className='high miniTemp'><img className="arrows" src={highIcon}/> {weatherData.days[0].tempmax}°</div>
+      </div>
     </div>
   );
 }

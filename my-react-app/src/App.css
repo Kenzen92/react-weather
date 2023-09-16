@@ -17,6 +17,11 @@
   padding-top: 10%;
 }
 
+.loading-message {
+  font-size: xx-large;
+  margin-top: 30%;
+}
+
 .first-location-form {
   display: flex;
   justify-content: center;

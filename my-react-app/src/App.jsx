@@ -8,6 +8,7 @@ function App() {
   const [lon, setLon] = useState(null);
   const [locationName, setLocationName] = useState('');
   const [geolocationFetched, setGeolocationFetched] = useState(false);
+  const [geolocationAutoFetched , setGeolocationAutoFetched] = useState(false);
   const [showManualForm, setShowManualForm] = useState(false);
 
   // Function to fetch geolocation
@@ -51,6 +52,7 @@ function App() {
       }
 
       setGeolocationFetched(true);
+      setGeolocationAutoFetched(true);
     } catch (error) {
       console.error('Error fetching geolocation:', error);
       setShowManualForm(true);
@@ -81,6 +83,18 @@ function App() {
     // If cache is expired or doesn't exist, fetch geolocation
     fetchGeolocation();
   }, []);
+
+  const handleGeolocationRequest = async (event) => {
+    event.preventDefault();
+    await fetchGeolocation();
+    
+    if (!geolocationAutoFetched) {
+      const geolocationicon = document.getElementById('tootltiptext');
+      geolocationicon.style.display = 'inline-block';
+    } else {
+      console.log("Geolocation fetched");
+    }
+  };
 
   const handleManualSubmit = async (event) => {
     event.preventDefault();
@@ -120,7 +134,7 @@ function App() {
   return (
     <>
       {geolocationFetched ? (
-        <Weather lat={lat} lon={lon} locationName={locationName} handleManualSubmit={handleManualSubmit} />
+        <Weather lat={lat} lon={lon} locationName={locationName} handleManualSubmit={handleManualSubmit} handleGeolocationRequest={handleGeolocationRequest} />
       ) : showManualForm ? (
          <div className="first-search-bar">
           <h2>Sorry! Unable to get location</h2>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion'
 import UpperBox from './UpperBox/UpperBox';
 import TenDayBox from './TenDayBox/TenDayBox';
 import TodayBox from './TodayBox/TodayBox';
@@ -10,7 +11,7 @@ import foggyImage from '../../assets/images/fog.jpg';
 import sleetImage from '../../assets/images/sleet.jpg';
 import stormyImage from '../../assets/images/storm.jpg';
 
-const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit }) => {
+const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit, handleGeolocationRequest }) => {
   const [weatherData, setWeatherData] = useState(null);
 
   const weatherTypeToImageGroup = {
@@ -105,7 +106,9 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit }) => {
   }, [lat, lon]);
 
   if (!weatherData) {
-    return <div className="loadingMessage">Loading...</div>;
+    return <div className="loading-message">
+    Loading...
+    </div>;
   }
 
   const image = setBackgroundByType(weatherData['currentConditions']['conditions']);
@@ -124,6 +127,7 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit }) => {
             weatherData={weatherData}
             locationName={locationName}
             handleManualSubmit={handleManualSubmit}
+            handleGeolocationRequest={handleGeolocationRequest}
           />
           <TodayBox weatherData={weatherData} />
           <TenDayBox weatherData={weatherData} />
