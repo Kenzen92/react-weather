@@ -91,10 +91,15 @@ function App() {
     if (!geolocationAutoFetched) {
       const geolocationicon = document.getElementById('tootltiptext');
       geolocationicon.style.display = 'inline-block';
+    
+      // Add a timeout to hide the tooltip after 3 seconds (adjust the duration as needed)
+      setTimeout(() => {
+        geolocationicon.style.display = 'none';
+      }, 3000); // 3000 milliseconds = 3 seconds
     } else {
       console.log("Geolocation fetched");
     }
-  };
+  }
 
   const handleManualSubmit = async (event) => {
     event.preventDefault();

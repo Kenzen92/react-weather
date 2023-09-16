@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "./UpperBox.css"
 import lowIcon from '../../../assets/images/low_temp.png'
 import highIcon from '../../../assets/images/high_temp.png'
@@ -6,6 +7,7 @@ import searchIcon from '../../../assets/images/search_icon.png'
 import geolocationIcon from '../../../assets/images/geolocation.png'
 
 function UpperBox({ weatherData, locationName, handleManualSubmit, handleGeolocationRequest }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   const weatherDescriptions = {
     type_1: "Blowing or drifting snow",
@@ -69,14 +71,25 @@ function translateWeatherString(input) {
   return resultArray.join(' ');
 }
 
-function toggleSearch() {
-  const searchBar = document.getElementById('location-form');
-  searchBar.style.display = 'flex';
-  const searchToggle = document.getElementById('toggle-search');
-  searchToggle.style.display = 'none';
-  const geolocationForm = document.getElementById('geolocation-form');
-  geolocationForm.style.display = 'block';
-}
+const variants = {
+  open: { opacity: 1, x: 0 },
+  closed: { opacity: 0.5, x: "-100%" },
+};
+
+
+
+  const toggleSearch = () => {
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  };
+
+// function toggleSearch() {
+//   const searchBar = document.getElementById('location-form');
+//   searchBar.style.display = 'flex';
+//   const searchToggle = document.getElementById('toggle-search');
+//   searchToggle.style.display = 'none';
+//   const geolocationForm = document.getElementById('geolocation-form');
+//   geolocationForm.style.display = 'block';
+// }
   
   return (
     <div className='newBox'>
@@ -86,18 +99,25 @@ function toggleSearch() {
           <button className="toggle-search" id="toggle-search" type="button" onClick={toggleSearch} >
             <img className="searchButtonImage" src={searchIcon} />
           </button>
-          <form onSubmit={handleGeolocationRequest} id="geolocation-form" className="geolocation-form">
-            <button className="searchButton" type="submit">
-                <img className="searchButtonImage tooltip" src={geolocationIcon} />
-                <span id="tootltiptext" className="tooltiptext">Geolocation unavailable</span>
-            </button>
-          </form>
-          <form onSubmit={handleManualSubmit} id="location-form" className="location-form">
-            <input className="searchToggle" type="text" placeholder="Type your city name" name="location" id="location" required />
-            <button className="searchButton" type="submit">
-              <img className="searchButtonImage" src={searchIcon} />
-            </button>
-          </form>
+          <motion.div
+            className={`searchBar ${isOpen ? "open" : "closed"}`}
+            initial="closed"
+            animate={isOpen ? "open" : "closed"}
+            variants={variants}
+          >
+            <form onSubmit={handleGeolocationRequest} id="geolocation-form" className="geolocation-form">
+              <button className="searchButton" type="submit">
+                  <img className="searchButtonImage tooltip" src={geolocationIcon} />
+                  <span id="tootltiptext" className="tooltiptext">Geolocation unavailable</span>
+              </button>
+            </form>
+            <form onSubmit={handleManualSubmit} id="location-form" className="location-form">
+              <input className="searchToggle" type="text" placeholder="Type your city name" name="location" id="location" required />
+              <button className="searchButton" type="submit">
+                <img className="searchButtonImage" src={searchIcon} />
+              </button>
+            </form>
+          </motion.div>
         </div>
       </div>
       <div className='temp'>{weatherData.currentConditions.temp}°</div>
