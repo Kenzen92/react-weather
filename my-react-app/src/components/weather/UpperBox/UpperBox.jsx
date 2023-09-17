@@ -73,12 +73,16 @@ function translateWeatherString(input) {
 
 const variants = {
   open: { opacity: 1, x: 0 },
-  closed: { opacity: 0.5, x: "-100%" },
+  closed: { opacity: 0.5, x: "+100%" },
 };
 
 
 
   const toggleSearch = () => {
+      const searchBar = document.getElementById('search-bar-slider');
+      searchBar.style.display = 'flex';
+      const searchToggle = document.getElementById('toggle-search');
+      searchToggle.style.display = 'none';
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
@@ -100,7 +104,8 @@ const variants = {
             <img className="searchButtonImage" src={searchIcon} />
           </button>
           <motion.div
-            className={`searchBar ${isOpen ? "open" : "closed"}`}
+            className={`searchBarSlider ${isOpen ? "open" : "closed"}`}
+            id='search-bar-slider'
             initial="closed"
             animate={isOpen ? "open" : "closed"}
             variants={variants}

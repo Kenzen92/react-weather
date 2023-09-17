@@ -31,9 +31,12 @@ img {
 }
 .searchBar {
     display: flex;
-    /* justify-content: space-between;
+    justify-content: space-between;
     margin-left: 1rem;
-    align-items: center; */
+    align-items: center; 
+}
+.searchBarSlider {
+    display: none;
 }
 .newLocationSearch {
     margin-right: 1rem;
@@ -55,32 +58,31 @@ img {
     margin-top: 1.5rem;
     opacity: 1;
 }
-/* .home-button {
+.home-button {
     margin-top: 1rem;
 }
 .searchButton {
     margin-right: 0.2rem;
-} */
+}
 .location-form {
     display: flex;
-    /* justify-content: center;
+    justify-content: center;
     align-items: center;
-    margin-top: 1rem; */
 }
-/* .searchButton, .toggle-search {
+.searchButton, .toggle-search {
     padding: 0.1rem;
 }
 .toggle-search {
     margin-top: 1rem;
 }
 .searchButtonImage{
-    width: 1rem;
+    width: 1.5rem;
 }
 .searchToggle {
     margin-right: 1rem;
     font-size: small;
-    height: 1.5rem;
-} */
+    height: 2rem;
+}
 
 .placeName {
     padding-top: 15%;
