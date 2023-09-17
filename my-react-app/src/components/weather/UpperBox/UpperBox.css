@@ -8,6 +8,10 @@ img {
     padding: 2px;
 }
 
+button {
+    background-color: rgba(47, 117, 187, .7) !important;
+}
+
 .phoneBox {
     text-align: center;
     border: 1px;
@@ -32,14 +36,14 @@ img {
 .searchBar {
     display: flex;
     justify-content: space-between;
-    margin-left: 1rem;
-    align-items: center; 
+    margin-left: 0.2rem;
+    align-items: flex-end; 
 }
 .searchBarSlider {
     display: none;
 }
 .newLocationSearch {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
     display: flex;
     align-items: flex-end;
 }
@@ -76,23 +80,28 @@ img {
     margin-top: 1rem;
 }
 .searchButtonImage{
-    width: 1.5rem;
+    width: 1rem;
 }
 .searchToggle {
-    margin-right: 1rem;
-    font-size: small;
-    height: 2rem;
+    margin-right: 0.2rem;
+    margin-left: 1rem;
+    font-size: smaller;
+    height: 1.5rem;
+    width: 12rem;
 }
 
 .placeName {
-    padding-top: 15%;
+    padding-top: 1rem;
 }
 .newBox .placeName {
     font-size: 2rem;
 }
 .newBox .temp {
     font-size: 3rem;
-    padding-top: 2%;
+    
+}
+.temp {
+    padding-top: 5%;
 }
 .newBox .description, .newBox .miniTemp {
     font-size: 1rem;
@@ -142,5 +151,34 @@ img {
     img {
         max-width: 35px;
         padding: 5px;
+    }
+    .searchBar {
+        margin-left: 1rem;
+    }
+    .newLocationSearch {
+        margin-right: 1rem;
+    }
+
+    .searchButtonImage{
+        width: 1.5rem;
+    }
+    .searchToggle {
+        font-size: small;
+        height: 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .searchBar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .newLocationSearch {
+        margin-top: 0.5rem;
+        margin-right: 1rem;
+        margin-left: auto;
+    }
+    .searchBarSlider {
+        margin-top: 1rem;
     }
   }

@@ -72,8 +72,8 @@ function translateWeatherString(input) {
 }
 
 const variants = {
-  open: { opacity: 1, x: 0 },
-  closed: { opacity: 0.5, x: "+100%" },
+  open: { opacity: 1 },
+  closed: { opacity: 0  },
 };
 
 
