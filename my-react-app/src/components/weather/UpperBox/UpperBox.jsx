@@ -56,19 +56,8 @@ function UpperBox({ weatherData, locationName, handleManualSubmit, handleGeoloca
 };
 
 function translateWeatherString(input) {
-  const words = input.toLowerCase().split(' ');
-  const resultArray = [];
-  
-  for (let i = 0; i < words.length; i++) {
-      const word = words[i];
-      if (weatherDescriptions[word]) {
-          resultArray.push(weatherDescriptions[word]);
-      } else {
-          resultArray.push(word); // Keep the original word if no translation
-      }
-  }
-
-  return resultArray.join(' ');
+  result = weatherDescriptions[input]
+  return result
 }
 
 const variants = {
