@@ -55,9 +55,6 @@ function UpperBox({ weatherData, locationName, handleManualSubmit, handleGeoloca
     type_43: "Clear and sunny conditions"
 };
 
-function translateWeatherString(input) {
-  return weatherDescriptions[input]
-}
 
 const variants = {
   open: { opacity: 1 },
@@ -74,15 +71,7 @@ const variants = {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-// function toggleSearch() {
-//   const searchBar = document.getElementById('location-form');
-//   searchBar.style.display = 'flex';
-//   const searchToggle = document.getElementById('toggle-search');
-//   searchToggle.style.display = 'none';
-//   const geolocationForm = document.getElementById('geolocation-form');
-//   geolocationForm.style.display = 'block';
-// }
-  
+ 
   return (
     <div className='newBox'>
       <div className="searchBar">
