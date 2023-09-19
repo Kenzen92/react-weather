@@ -56,19 +56,7 @@ function UpperBox({ weatherData, locationName, handleManualSubmit, handleGeoloca
 };
 
 function translateWeatherString(input) {
-  const words = input.toLowerCase().split(' ');
-  const resultArray = [];
-  
-  for (let i = 0; i < words.length; i++) {
-      const word = words[i];
-      if (weatherDescriptions[word]) {
-          resultArray.push(weatherDescriptions[word]);
-      } else {
-          resultArray.push(word); // Keep the original word if no translation
-      }
-  }
-
-  return resultArray.join(' ');
+  return weatherDescriptions[input]
 }
 
 const variants = {
@@ -127,7 +115,7 @@ const variants = {
       </div>
       <div className='temp'>{weatherData.currentConditions.temp}°</div>
       <div className='placeName'>{locationName}</div>
-      <div className='description'>{translateWeatherString(weatherData.currentConditions.conditions)}</div>
+      <div className='description'>{weatherDescriptions[weatherData.currentConditions.conditions]}</div>
       <div className='miniTemps'>
         <div className='low miniTemp'><img className="arrows" src={lowIcon}/> {weatherData.days[0].tempmin}°</div>
         <div className='high miniTemp'><img className="arrows" src={highIcon}/> {weatherData.days[0].tempmax}°</div>

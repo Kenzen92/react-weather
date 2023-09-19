@@ -98,7 +98,6 @@ button {
 }
 .newBox .temp {
     font-size: 3rem;
-    
 }
 .temp {
     padding-top: 5%;
@@ -112,6 +111,9 @@ button {
 }
 .miniTemp {
     padding: 0.2rem;
+}
+.newBox {
+    background-color: rgba(0,0,0,0.1);
 }
 
 .todayBox{

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion'
 import UpperBox from './UpperBox/UpperBox';
 import TenDayBox from './TenDayBox/TenDayBox';
 import TodayBox from './TodayBox/TodayBox';
 import sunnyImage from '../../assets/images/sunny3.jpg';
 import cloudyImage from '../../assets/images/cloudy2.jpg';
-import rainyImage from '../../assets/images/rain.jpg';
+import rainyImage from '../../assets/images/rain2.jpg';
 import snowyImage from '../../assets/images/snow.jpg';
 import foggyImage from '../../assets/images/fog.jpg';
 import sleetImage from '../../assets/images/sleet.jpg';
