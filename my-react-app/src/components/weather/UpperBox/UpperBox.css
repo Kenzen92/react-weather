@@ -112,9 +112,7 @@ button {
 .miniTemp {
     padding: 0.2rem;
 }
-.newBox {
-    background-color: rgba(0,0,0,0.1);
-}
+
 
 .todayBox{
     display: flex;

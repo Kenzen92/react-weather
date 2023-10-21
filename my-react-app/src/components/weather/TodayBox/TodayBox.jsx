@@ -97,6 +97,12 @@ function TodayBox({ weatherData }) {
 
     const hourBoxes = [];
     for (let i = 1; i <= 23; i++) {
+        const precipitation = nextSixHours[i].precipitation;
+
+        const precipDiv = precipitation > 0 ? (
+            <div className="todayItem precip">{precipitation}mm</div>
+        ) : null;
+
         hourBoxes.push(
             <div className="one-hour-box" key={i}>
                 <div id={`currentTimePlus${i}`} className="todayItem">{nextSixHours[i].time}</div>
@@ -104,7 +110,7 @@ function TodayBox({ weatherData }) {
                     <img id={`currentIconPlus${i}`} src={nextSixHours[i].icon} alt=""></img>
                 </div>
                 <div id={`currentTempSmallPlus${i}`} className="todayItem">{nextSixHours[i].temp}°</div>
-                <div className="todayItem precip">{nextSixHours[i].precipitation}mm</div>
+                {precipDiv}
             </div>
         );
     }
@@ -223,6 +229,10 @@ function TodayBox({ weatherData }) {
 
     const inputString = weatherData['description'];
     const translatedString = translateWeatherString(inputString);
+    const precipitation = weatherData.currentConditions.precip;
+    const precipDiv = precipitation > 0 ? (
+        <div className="todayItem precip">{precipitation}mm</div>
+    ) : null;
 
   return (
     <div className="todayBoxBackground">
@@ -239,7 +249,7 @@ function TodayBox({ weatherData }) {
                                 <img id="currentIcon" src={weatherIcons[weatherData.currentConditions['icon']]}></img>
                             </div>
                             <div id="currentTempSmall" className="todayItem">{weatherData.currentConditions.temp}°</div>
-                            <div className="todayItem">{weatherData.currentConditions.precip}mm</div>
+                            {precipDiv}
                         </div>
                         
                         {hourBoxes}

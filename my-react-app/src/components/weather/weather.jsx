@@ -34,11 +34,11 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit, handleGe
     type_35: snowyImage, // Light Snow
 
     // Other
-    type_7: 'dust', // Dust storm
+    type_7: foggyImage, // Dust storm
     type_8: foggyImage, // Fog
     type_12: foggyImage, // Freezing Fog
     type_19: foggyImage, // Mist
-    type_30: 'smoke', // Smoke Or Haze
+    type_30: foggyImage, // Smoke Or Haze
     type_37: stormyImage, // Thunderstorm
     type_38: stormyImage, // Thunderstorm Without Precipitation
     type_14: sleetImage, // Light Freezing Rain
@@ -58,14 +58,14 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit, handleGe
     type_42: cloudyImage, // Partially cloudy
 
     // Special conditions
-    type_15: 'tornado', // Funnel Cloud/Tornado
-    type_16: 'hail', // Hail Showers
-    type_40: 'hail', // Hail
-    type_36: 'squalls', // Squalls
+    type_15: stormyImage, // Funnel Cloud/Tornado
+    type_16: stormyImage, // Hail Showers
+    type_40: stormyImage, // Hail
+    type_36: stormyImage, // Squalls
     type_18: stormyImage, // Lightning Without Thunder
-    type_39: 'diamond_dust', // Diamond Dust
-    type_17: 'ice', // Ice
-    type_20: 'rain_nearby', // Precipitation In Vicinity
+    type_39: stormyImage, // Diamond Dust
+    type_17: snowyImage, // Ice
+    type_20: rainyImage, // Precipitation In Vicinity
     };
 
   // Function to set the background image based on the type number's category
@@ -110,12 +110,13 @@ const WeatherComponent = ({ lat, lon, locationName, handleManualSubmit, handleGe
     </div>;
   }
 
-  const image = setBackgroundByType(weatherData['currentConditions']['conditions']);
+  const image = setBackgroundByType(weatherData['currentConditions']['conditions'].split(",")[0]);
   const boxContainerStyle = {
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     backgroundPosition: 'top',
     backgroundAttachment: 'fixed',
+    height: 'fit-content'
   };
 
   return (
